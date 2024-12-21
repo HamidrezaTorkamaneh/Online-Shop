@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:online_shop/widgets/banner_slider.dart';
+import 'package:online_shop/widgets/custom_color.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,29 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SafeArea(
-          child: SizedBox(
-            height: 200,
-            child: PageView.builder(
-              controller: PageController(
-                viewportFraction:0.8
-              ),
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12),
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.red,
-                  ),
-                );
-              },
-            ),
-          ),
+          child: BannerSlider(),
         ),
       ),
     );
