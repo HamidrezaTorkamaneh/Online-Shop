@@ -2,8 +2,12 @@
 class Assets {
   Assets._();
 
-  static const String fonstYekanBakhBold = 'assets/fonst/YekanBakh-Bold.ttf';
-  static const String fonstYekanBakhLight = 'assets/fonst/YekanBakh-Light.ttf';
-  static const String fonstYekanBakhMedium = 'assets/fonst/YekanBakh-Medium.ttf';
+  static const String fontsYekanBakhBold = 'assets/fonts/YekanBakh-Bold.ttf';
+  static const String fontsYekanBakhLight = 'assets/fonts/YekanBakh-Light.ttf';
+  static const String fontsYekanBakhMedium = 'assets/fonts/YekanBakh-Medium.ttf';
+  static const String imagesIconActiveFav = 'assets/images/icon_active_fav.svg';
+  static const String imagesIconLeftArrowCircle = 'assets/images/icon_left_arrow_circle.svg';
+  static const String imagesIconRightArrowCircle = 'assets/images/icon_right_arrow_circle.svg';
+  static const String imagesIphone = 'assets/images/iphone.png';
 
 }

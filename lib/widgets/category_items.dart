@@ -8,13 +8,11 @@ class CategoryItems extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(left: 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-
         children: [
           Container(
-
             width: 56,
             height: 56,
             decoration: ShapeDecoration(

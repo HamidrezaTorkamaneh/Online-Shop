@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_shop/screens/main_screen.dart';
 import 'package:online_shop/widgets/banner_slider.dart';
 import 'package:online_shop/widgets/category_items.dart';
+import 'package:online_shop/widgets/custom_color.dart';
+import 'package:online_shop/widgets/produce_item.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,50 +16,30 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: TextTheme(
-          headline1: TextStyle(
-            fontFamily: 'YB',
-            fontSize: 10,
-            color: Colors.black,
-          ),
-        ),
-      ),
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(0),
-          child: AppBar(
-            systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.dark,
-              statusBarColor: Colors.white,
-              systemNavigationBarColor: Colors.white,
-              systemNavigationBarIconBrightness: Brightness.dark,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: TextTheme(
+            headline1: TextStyle(
+              fontFamily: 'YB',
+              fontSize: 10,
+              color: Colors.black,
             ),
+            headline2: TextStyle(
+              fontFamily: 'YM',
+              fontSize: 10,
+              color: Colors.black,
+            ),
+            headline3: TextStyle(
+              fontFamily: 'YB',
+              fontSize: 10,
+              color: CustomColor.greyColor,
+            )
           ),
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              BannerSlider(),
-              SizedBox(height: 32),
-              SizedBox(
-                height: 100,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 44  ),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    // itemCount: 5,
-                    itemBuilder: (context, index) {
-                    return CategoryItems();
-                  },),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+        home: Scaffold(
+          backgroundColor: CustomColor.backGroundColor,
+          body: Center(
+              child: MainScreen()),
+        ));
   }
 }
