@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/custom_color.dart';
-import 'package:online_shop/widgets/produce_item.dart';
 import 'package:online_shop/widgets/see_more.dart';
-
 import '../widgets/banner_slider.dart';
 import '../widgets/category_items.dart';
+import '../widgets/product_item.dart';
+import '../widgets/search_app_bar.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
@@ -30,7 +29,11 @@ class MainScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: CustomScrollView(
+          physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
           slivers: [
+            SliverToBoxAdapter(
+              child: SearchAppBar(),
+            ),
             SliverToBoxAdapter(
               child: BannerSlider(),
             ),
@@ -54,14 +57,11 @@ class MainScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 44),
                 child: SizedBox(
                   height: 100,
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return CategoryItems();
-                      },
-                    ),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return CategoryItems();
+                    },
                   ),
                 ),
               ),
@@ -74,12 +74,15 @@ class MainScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 200,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 33),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return ProduceItem();
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: ProductItem(),
+                      );
                     },
                   ),
                 ),
@@ -91,12 +94,15 @@ class MainScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 200,
-                child: Directionality(
-                  textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 33),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return ProduceItem();
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: ProductItem(),
+                      );
                     },
                   ),
                 ),
