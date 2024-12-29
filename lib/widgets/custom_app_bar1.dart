@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'Custom_icon.dart';
 import 'custom_color.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar1 extends StatelessWidget {
   String text;
 
-  CustomAppBar({super.key, required this.text});
+  CustomAppBar1({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

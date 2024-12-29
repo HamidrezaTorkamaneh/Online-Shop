@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:online_shop/widgets/custom_app_bar.dart';
+
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/product_item.dart';
+
+import '../widgets/custom_app_bar1.dart';
 
 class CategoryScreen extends StatelessWidget {
   CategoryScreen({super.key});
@@ -28,7 +30,7 @@ class CategoryScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
           slivers: [
             SliverToBoxAdapter(
-              child: CustomAppBar(text: 'دسته بندی'),
+              child: CustomAppBar1(text: 'دسته بندی'),
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 44),

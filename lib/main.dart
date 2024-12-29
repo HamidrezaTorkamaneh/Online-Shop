@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/main_screen.dart';
+import 'package:online_shop/screens/product_detail_screen.dart';
+import 'package:online_shop/screens/profile_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/banner_slider.dart';
 import 'package:online_shop/widgets/category_items.dart';
@@ -56,7 +58,6 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        appBar: AppBar(),
         body: IndexedStack(
           index: selectedBottomNavigationIndex,
           children: getScreens(),
@@ -100,7 +101,9 @@ class _MyAppState extends State<MyApp> {
                       )
                     ]),
                     child: CustomIcon(
-                        icon: 'active_home', color: CustomColor.blueColor, size: 25),
+                        icon: 'active_home',
+                        color: CustomColor.blueColor,
+                        size: 25),
                   ),
                   label: 'خانه',
                 ),
@@ -138,7 +141,9 @@ class _MyAppState extends State<MyApp> {
                       )
                     ]),
                     child: CustomIcon(
-                        icon: 'active_basket', color: CustomColor.blueColor, size: 25),
+                        icon: 'active_basket',
+                        color: CustomColor.blueColor,
+                        size: 25),
                   ),
                   label: 'سبد خرید',
                 ),
@@ -155,7 +160,9 @@ class _MyAppState extends State<MyApp> {
                       )
                     ]),
                     child: CustomIcon(
-                        icon: 'active_user', color: CustomColor.blueColor, size: 25),
+                        icon: 'active_user',
+                        color: CustomColor.blueColor,
+                        size: 25),
                   ),
                   label: 'حساب کاربری',
                 ),
@@ -172,7 +179,7 @@ List<Widget> getScreens() {
   return <Widget>[
     MainScreen(),
     CategoryScreen(),
-    MainScreen(),
-    CategoryScreen(),
+    ProductDetailScreen(),
+    ProfileScreen(),
   ];
 }
