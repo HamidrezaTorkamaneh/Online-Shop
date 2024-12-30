@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/custom_app_bar2.dart';
 import 'package:online_shop/widgets/custom_color.dart';
+import 'package:online_shop/widgets/detail_of_product.dart';
+import 'package:online_shop/widgets/select_color.dart';
+import 'package:online_shop/widgets/specification_item.dart';
+import 'package:online_shop/widgets/storage_item.dart';
 
 import '../widgets/album_of_product.dart';
 
@@ -15,79 +19,86 @@ class ProductDetailScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: CustomColor.backGroundColor,
       body: SafeArea(
-          child: Column(
-        children: [
-          CustomAppBar2(text: 'آیفون'),
-          SizedBox(height: 30),
-          Text(
-            'آیفون SE 2022',
-            style: theme.textTheme.headline1?.apply(
-              fontSizeDelta: 5,
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: CustomAppBar2(text: 'آیفون'),
             ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 30),
-            height: 284,
-            width: 340,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 20,
-                  spreadRadius: -20,
-                  offset: Offset(0.0, 3),
-                  color: Colors.black,
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Text(
+                  'آیفون SE 2022',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.headline1?.apply(
+                    fontSizeDelta: 5,
+                  ),
                 ),
-              ],
+              ),
             ),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+            // SizedBox(height: 20),
+            SliverToBoxAdapter(
+              child: DetailOfProduct(),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(44, 20, 44, 10),
+                child: Text(
+                  'انتخاب رنگ',
+                  style: theme.textTheme.headline1?.apply(
+                    fontSizeDelta: 1,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
+                child: Row(
                   children: [
-                    CustomIcon(
-                        icon: 'active_fav',
-                        color: CustomColor.greyColor,
-                        size: 20),
-                    Spacer(),
-                    Expanded(
-                        child: Image.asset('assets/images/iphone.png',
-                            width: 101, height: 148)),
-                    SizedBox(width: 60),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 3),
-                      child: Text(
-                        '۴.۶',
-                        style:
-                            theme.textTheme.headline1?.apply(fontSizeDelta: 1),
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    CustomIcon(
-                        icon: 'star', color: CustomColor.goldColor, size: 20),
+                    SelectColor(),
+                    SelectColor(),
+                    SelectColor(),
                   ],
                 ),
-                SizedBox(height: 20),
-                SizedBox(
-                  height: 70,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 45),
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return AlbumOfProduct();
-                      },
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
-          )
-        ],
-      )),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(44, 0, 44, 10),
+                child: Text(
+                  'انتخاب رنگ',
+                  style: theme.textTheme.headline1?.apply(
+                    fontSizeDelta: 1,
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 44,right: 44,bottom: 10),
+                child: Row(
+                  children: [
+                    StorageItem(storage: '۱۲۸'),
+                    StorageItem(storage: '۲۵۶'),
+                    StorageItem(storage: '۵۱۲'),
+                  ],
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SpecificationItem(specification: 'مشخصات فنی'),
+                  SpecificationItem(specification: 'توضیحات محصول'),
+                  SpecificationItem(specification: 'نظرات کاربران'),
+
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
