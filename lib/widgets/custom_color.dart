@@ -7,4 +7,5 @@ class CustomColor {
   static const Color redColor= Color(0xffD02026);
   static const Color greyColor=Color(0xff858585);
   static const Color goldColor=Color(0xffFFBF00);
+  static const Color greenColor=Color(0xff1DB68B);
 }

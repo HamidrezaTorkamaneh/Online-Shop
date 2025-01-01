@@ -40,21 +40,23 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: TextTheme(
-            headline1: TextStyle(
-              fontFamily: 'YB',
-              fontSize: 10,
-              color: Colors.black,
-            ),
-            headline2: TextStyle(
-              fontFamily: 'YM',
-              fontSize: 10,
-              color: Colors.black,
-            ),
-            headline3: TextStyle(
-              fontFamily: 'YB',
-              fontSize: 10,
-              color: CustomColor.greyColor,
-            )),
+          headline1: TextStyle(
+            fontFamily: 'YB',
+            fontSize: 10,
+            color: Colors.black,
+          ),
+          headline2: TextStyle(
+            fontFamily: 'YM',
+            fontSize: 10,
+            color: Colors.black,
+          ),
+          headline3: TextStyle(
+            fontFamily: 'YB',
+            fontSize: 10,
+            color: CustomColor.greyColor,
+          ),
+
+        ),
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
