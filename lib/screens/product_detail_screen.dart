@@ -211,7 +211,8 @@ class ProductDetailScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            )
+            ),
+            SliverPadding(padding: EdgeInsets.only(bottom: 20)),
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/main_screen.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
+import 'package:online_shop/screens/shopping_cart_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/banner_slider.dart';
 import 'package:online_shop/widgets/category_items.dart';
@@ -181,7 +182,7 @@ List<Widget> getScreens() {
   return <Widget>[
     MainScreen(),
     CategoryScreen(),
-    ProductDetailScreen(),
+    ShoppingCartScreen(),
     ProfileScreen(),
   ];
 }

@@ -20,7 +20,7 @@ class PriceTagButoon extends StatelessWidget {
           width: 130,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: CustomColor.greenColor,
+            color: CustomColor.greenColor1,
           ),
         ),
         ClipRRect(

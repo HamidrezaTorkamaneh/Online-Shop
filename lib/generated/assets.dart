@@ -5,7 +5,6 @@ class Assets {
   static const String fontsYekanBakhBold = 'assets/fonts/YekanBakh-Bold.ttf';
   static const String fontsYekanBakhLight = 'assets/fonts/YekanBakh-Light.ttf';
   static const String fontsYekanBakhMedium = 'assets/fonts/YekanBakh-Medium.ttf';
-  static const String imagesAlbumOfProduct = 'assets/images/album_of_product.dart';
   static const String imagesIconActiveBasket = 'assets/images/icon_active_basket.svg';
   static const String imagesIconActiveCategory = 'assets/images/icon_active_category.svg';
   static const String imagesIconActiveFav = 'assets/images/icon_active_fav.svg';
@@ -14,6 +13,8 @@ class Assets {
   static const String imagesIconApple = 'assets/images/icon_apple.svg';
   static const String imagesIconBasket = 'assets/images/icon_basket.svg';
   static const String imagesIconCategory = 'assets/images/icon_category.svg';
+  static const String imagesIconChange = 'assets/images/icon_change.svg';
+  static const String imagesIconDelete = 'assets/images/icon_delete.svg';
   static const String imagesIconHome = 'assets/images/icon_home.svg';
   static const String imagesIconLeftArrowCircle = 'assets/images/icon_left_arrow_circle.svg';
   static const String imagesIconRightArrowCircle = 'assets/images/icon_right_arrow_circle.svg';
