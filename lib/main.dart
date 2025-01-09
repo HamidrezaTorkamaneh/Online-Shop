@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_shop/data/repository/authentication_repository.dart';
 import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/main_screen.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
@@ -13,7 +14,11 @@ import 'package:online_shop/widgets/category_items.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
+import 'data/datasource/authentication_datasource.dart';
+import 'di/di.dart';
+
+void main() async{
+  await getItInit();
   runApp(const MyApp());
 }
 
@@ -61,10 +66,24 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        body: IndexedStack(
-          index: selectedBottomNavigationIndex,
-          children: getScreens(),
+        body: Center(
+          child:  ElevatedButton(
+            onPressed: () async{
+            // var either=  await AuthenticationRepository().register();
+            //  either.fold((errorMessage){
+            //    print(errorMessage);
+            //
+            //  }, (successMessage) {
+            //   print(successMessage);
+            //  });
+            },
+            child: Text('Click'),
+          ),
         ),
+        // IndexedStack(
+        //   index: selectedBottomNavigationIndex,
+        //   children: getScreens(),
+        // ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
