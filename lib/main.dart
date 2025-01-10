@@ -8,16 +8,19 @@ import 'package:online_shop/screens/main_screen.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
 import 'package:online_shop/screens/shopping_cart_screen.dart';
+import 'package:online_shop/util/auth_manager.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/banner_slider.dart';
 import 'package:online_shop/widgets/category_items.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/datasource/authentication_datasource.dart';
 import 'di/di.dart';
 
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await getItInit();
   runApp(const MyApp());
 }
@@ -61,24 +64,37 @@ class _MyAppState extends State<MyApp> {
             fontSize: 10,
             color: CustomColor.greyColor,
           ),
-
         ),
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        body: Center(
-          child:  ElevatedButton(
-            onPressed: () async{
-            // var either=  await AuthenticationRepository().register();
-            //  either.fold((errorMessage){
-            //    print(errorMessage);
-            //
-            //  }, (successMessage) {
-            //   print(successMessage);
-            //  });
-            },
-            child: Text('Click'),
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                var either = await AuthenticationRepository()
+                    .login('hamid12345', 'hamid1234');
+              },
+              child: Text('login'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                AuthManager.logout();
+              },
+              child: Text('logout'),
+            ),
+            ValueListenableBuilder(
+              valueListenable: AuthManager.authChangeNotifier,
+              builder: (context, value, child) {
+                if(value==null || value.isEmpty){
+                  return Text(('شما وارد نشده اید'));
+                }else{
+                  return Text('شما وارد شده اید');
+                }
+              },
+            )
+          ],
         ),
         // IndexedStack(
         //   index: selectedBottomNavigationIndex,
