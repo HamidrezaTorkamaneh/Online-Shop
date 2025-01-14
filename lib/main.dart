@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop/bloc/authentication/auth_bloc.dart';
 import 'package:online_shop/data/repository/authentication_repository.dart';
 import 'package:online_shop/screens/category_screen.dart';
+import 'package:online_shop/screens/login_screen.dart';
 import 'package:online_shop/screens/main_screen.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
@@ -68,33 +71,9 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                var either = await AuthenticationRepository()
-                    .login('hamid12345', 'hamid1234');
-              },
-              child: Text('login'),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                AuthManager.logout();
-              },
-              child: Text('logout'),
-            ),
-            ValueListenableBuilder(
-              valueListenable: AuthManager.authChangeNotifier,
-              builder: (context, value, child) {
-                if(value==null || value.isEmpty){
-                  return Text(('شما وارد نشده اید'));
-                }else{
-                  return Text('شما وارد شده اید');
-                }
-              },
-            )
-          ],
+        body:BlocProvider(
+          create: ((context)=>AuthBloc()),
+          child: LoginScreen(),
         ),
         // IndexedStack(
         //   index: selectedBottomNavigationIndex,

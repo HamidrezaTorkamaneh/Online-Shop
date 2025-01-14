@@ -5,7 +5,10 @@ import 'custom_color.dart';
 
 class MyButton extends StatelessWidget{
   String text;
-  MyButton({super.key,required this.text});
+  Color color;
+  void Function()? onTap;
+
+  MyButton({super.key,required this.text,required this.color,this.onTap});
   @override
   Widget build(BuildContext context) {
     final ThemeData theme=Theme.of(context);
@@ -15,13 +18,21 @@ class MyButton extends StatelessWidget{
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: CustomColor.greenColor1,
+        color: color,
       ),
-      child: Center(
-        child: Text(text,style: theme.textTheme.headline1?.apply(
-          color: Colors.white,
-          fontSizeDelta: 3,
-        ),),
+      child: Material(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(15),
+          onTap: onTap,
+          child: Center(
+            child: Text(text,style: theme.textTheme.headline1?.apply(
+              color: Colors.white,
+              fontSizeDelta: 3,
+            ),),
+          ),
+        ),
       ),
     );
   }

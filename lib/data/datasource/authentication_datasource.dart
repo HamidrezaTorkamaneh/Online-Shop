@@ -43,7 +43,7 @@ class AuthenticationRemote implements IAuthenticationDatasource {
     } on DioError catch (ex) {
       throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
     } catch (ex) {
-      throw ApiException(0, 'unknow error');
+      throw ApiException(0, 'unknown error');
     }
     return '';
   }

@@ -39,7 +39,7 @@ class ShoppingCartScreen extends StatelessWidget {
                 ),
               ],
             ),
-            MyButton(text: 'ادامه فرایند خرید')
+            MyButton(text: 'ادامه فرایند خرید',color: Colors.blue,)
           ],
         ),
       ),
