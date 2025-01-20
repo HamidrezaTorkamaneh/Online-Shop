@@ -13,27 +13,29 @@ class SeeMore extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 20),
-      child: Row(
-        children: [
-          Text(
-            text,
-            style: theme.textTheme.headline3,
-          ),
-          Spacer(),
-          Text(
-            'مشاهده همه',
-            style: theme.textTheme.headline3?.apply(
-              color: CustomColor.blueColor,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 20),
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: theme.textTheme.headline3,
             ),
-          ),
-          SizedBox(width: 10),
-          CustomIcon(
-              icon: 'left_arrow_circle',
-              color: CustomColor.blueColor,
-              size: 20),
-        ],
+            Spacer(),
+            Text(
+              'مشاهده همه',
+              style: theme.textTheme.headline3?.apply(
+                color: CustomColor.blueColor,
+              ),
+            ),
+            SizedBox(width: 10),
+            CustomIcon(
+                icon: 'left_arrow_circle',
+                color: CustomColor.blueColor,
+                size: 20),
+          ],
+        ),
       ),
     );
   }

@@ -1,14 +1,18 @@
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop/bloc/authentication/auth_bloc.dart';
+import 'package:online_shop/bloc/category/category_bloc.dart';
+import 'package:online_shop/bloc/home/home_bloc.dart';
 import 'package:online_shop/data/repository/authentication_repository.dart';
 import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/login_screen.dart';
-import 'package:online_shop/screens/main_screen.dart';
+
 import 'package:online_shop/screens/product_detail_screen.dart';
+import 'package:online_shop/screens/product_list_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
 import 'package:online_shop/screens/shopping_cart_screen.dart';
 import 'package:online_shop/util/auth_manager.dart';
@@ -21,6 +25,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'data/datasource/authentication_datasource.dart';
 import 'di/di.dart';
+import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,14 +76,10 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        body:BlocProvider(
-          create: ((context)=>AuthBloc()),
-          child: LoginScreen(),
+        body: IndexedStack(
+          index: selectedBottomNavigationIndex,
+          children: getScreens(),
         ),
-        // IndexedStack(
-        //   index: selectedBottomNavigationIndex,
-        //   children: getScreens(),
-        // ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
@@ -194,8 +195,12 @@ class _MyAppState extends State<MyApp> {
 
 List<Widget> getScreens() {
   return <Widget>[
-    MainScreen(),
-    CategoryScreen(),
+    BlocProvider(create: (context)=> HomeBloc(),
+    child: HomeScreen(),),
+    BlocProvider(
+      create: (context) => CategoryBloc(),
+      child: CategoryScreen(),
+    ),
     ShoppingCartScreen(),
     ProfileScreen(),
   ];
