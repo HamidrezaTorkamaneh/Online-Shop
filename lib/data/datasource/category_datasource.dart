@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import '../../di/di.dart';
 import '../../util/api_exception.dart';
-import '../model/my_category.dart';
+import '../model/category.dart';
+
 
 abstract class ICategoryDatasource {
   Future<List<Category>> getCategories();

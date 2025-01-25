@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop/widgets/cached_image.dart';
 
-import '../data/model/my_category.dart';
+import '../data/model/category.dart';
+
+
 
 class ListCategory extends StatelessWidget{
   List<Category> ?list;

@@ -51,25 +51,36 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: BouncingScrollPhysics(
                 decelerationRate: ScrollDecelerationRate.fast),
             slivers: [
-              if(state is HomeLoadingState)...[
+              if (state is HomeLoadingState) ...[
                 SliverToBoxAdapter(
-                  child: CircularProgressIndicator(),
+                  child: Center(
+                    child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 )
-              ],SearchAppBar(),
-              if(state is HomeRequestSuccessState)...[
+              ],
+              SearchAppBar(),
+              if (state is HomeRequestSuccessState) ...[
                 state.bannerList.fold((exceptionMessage) {
-                   return  SliverToBoxAdapter(
-                       child: Text(exceptionMessage),
-                     );
+                  return SliverToBoxAdapter(
+                    child: Text(exceptionMessage),
+                  );
                 }, (listBanners) {
-                 return BannerSlider(listBanners);
-
-
+                  return BannerSlider(listBanners);
                 })
               ],
-
-
-              CategoryListTitle(),
+              if (state is HomeRequestSuccessState) ...[
+                state.categoryList.fold((exceptionMessage) {
+                  return SliverToBoxAdapter(
+                    child: Text(exceptionMessage),
+                  );
+                }, (categoryList) {
+                  return CategoryListTitle(categoryList);
+                })
+              ],
               SeeMore(text: 'پر فروش ترین ها'),
               CategoryList(),
               SeeMore(text: 'پر بازدید ترین ها'),

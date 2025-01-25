@@ -11,7 +11,6 @@ import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/list_category.dart';
 import 'package:online_shop/widgets/product_item.dart';
 
-import '../data/model/my_category.dart';
 import '../widgets/custom_app_bar1.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -59,7 +58,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   );
                 }
                 if (state is CategoryResponseState) {
-                 return state.response.fold((l) {
+                  return state.response.fold((l) {
                     return SliverToBoxAdapter(
                       child: Center(child: Text(l)),
                     );

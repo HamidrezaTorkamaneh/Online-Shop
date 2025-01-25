@@ -2,7 +2,8 @@ import 'package:dartz/dartz.dart';
 import '../../di/di.dart';
 import '../../util/api_exception.dart';
 import '../datasource/category_datasource.dart';
-import '../model/my_category.dart';
+import '../model/category.dart';
+
 
 abstract class ICategoryRepository {
   Future<Either<String, List<Category>>> getCategories();
