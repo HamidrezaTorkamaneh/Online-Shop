@@ -43,7 +43,9 @@ class ProductListScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: ProductItem(),
+                    // child: ProductItem(),
+                    child: Text('1'),
+
                   );
                 }),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

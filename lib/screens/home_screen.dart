@@ -82,9 +82,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 })
               ],
               SeeMore(text: 'پر فروش ترین ها'),
-              CategoryList(),
+              if (state is HomeRequestSuccessState) ...[
+                state.productList.fold((exceptionMessage) {
+                  return SliverToBoxAdapter(
+                    child: Text(exceptionMessage),
+                  );
+                }, (productList) {
+                  return ProductList(productList);
+                })
+              ],
               SeeMore(text: 'پر بازدید ترین ها'),
-              CategoryList(),
+
+              // ProductList(),
             ],
           );
         },

@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
+import 'package:online_shop/widgets/cached_image.dart';
 
+import '../data/model/product.dart';
 import 'custom_color.dart';
 
 class ProductItem extends StatelessWidget {
-  ProductItem({super.key});
+  final Product product;
+  ProductItem(this.product,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,11 @@ class ProductItem extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 children: [
                   Expanded(child: Container()),
-                  Image.asset('assets/images/iphone.png'),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CachedImage(imageUrl: product.thumbnail),
+                  ),
                   Positioned(
                     right: 12,
                     child: CustomIcon(
@@ -57,9 +64,9 @@ class ProductItem extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          '٪۳',
+                          '${product.persent!.round().toString()} %',
                           style: theme.textTheme.headline1?.apply(
-                            fontSizeDelta: -1,
+                            fontSizeDelta: -3,
                             color: Colors.white,
                           ),
                         ),
@@ -75,7 +82,7 @@ class ProductItem extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'آیفون ۱۳ پرو مکس',
+                      product.name,
                       textAlign: TextAlign.start,
                       style: theme.textTheme.headline1?.apply(
                         fontSizeDelta: 1.5,
@@ -115,7 +122,7 @@ class ProductItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '۴۶,۰۰۰,۰۰۰',
+                          product.realPrice.toString(),
                           style: theme.textTheme.headline2?.apply(
                             color: Colors.white,
                             decoration: TextDecoration.lineThrough,
@@ -125,9 +132,10 @@ class ProductItem extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '۴۵,۳۵۰,۰۰۰',
+                          product.price.toString(),
                           style: theme.textTheme.headline1?.apply(
                             color: Colors.white,
+
                             fontSizeDelta: 1,
                           ),
                         )

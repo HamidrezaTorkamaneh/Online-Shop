@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:online_shop/data/model/product.dart';
 import '../../data/model/banner.dart';
 import '../../data/model/category.dart';
 
@@ -12,6 +13,7 @@ class HomeLoadingState extends HomeState {}
 class HomeRequestSuccessState extends HomeState {
   Either<String, List<BannerCampaign>> bannerList;
   Either<String, List<Category>> categoryList;
+  Either<String, List<Product>> productList;
 
-  HomeRequestSuccessState(this.bannerList, this.categoryList);
+  HomeRequestSuccessState(this.bannerList, this.categoryList,this.productList);
 }

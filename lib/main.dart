@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         textTheme: TextTheme(
           headline1: TextStyle(
             fontFamily: 'YB',
-            fontSize: 10,
+            fontSize: 12,
             color: Colors.black,
           ),
           headline2: TextStyle(
