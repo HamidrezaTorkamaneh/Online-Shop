@@ -3,13 +3,13 @@ import 'package:online_shop/widgets/product_item.dart';
 
 import '../data/model/product.dart';
 
-class BestSellerProducts extends StatelessWidget {
+class MostViewProducts extends StatelessWidget{
   List<Product> productList;
-
-  BestSellerProducts(this.productList, {super.key});
+   MostViewProducts(this.productList,{super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 230,

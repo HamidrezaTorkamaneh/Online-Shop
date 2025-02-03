@@ -86,7 +86,7 @@ class CartItem extends StatelessWidget{
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 5),
                         width: 94,
                         height: 24,
                         decoration: BoxDecoration(
@@ -101,7 +101,7 @@ class CartItem extends StatelessWidget{
                               '۲۵۶ گیگابایت',
                               style: theme.textTheme.headline1?.apply(
                                 color: CustomColor.greyColor,
-                                fontSizeDelta: -1,
+                                fontSizeDelta: -2,
                               ),
                             ),
                             SizedBox(width: 10),
@@ -114,7 +114,7 @@ class CartItem extends StatelessWidget{
                       ),
                       SizedBox(width: 10),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 9),
+                        padding: EdgeInsets.symmetric(horizontal: 5),
                         width: 100,
                         height: 24,
                         decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class CartItem extends StatelessWidget{
                               'سبز کله غازی',
                               style: theme.textTheme.headline1?.apply(
                                 color: CustomColor.greyColor,
-                                fontSizeDelta: -1,
+                                fontSizeDelta: -2,
                               ),
                             ),
                             SizedBox(width: 5),
@@ -226,6 +226,7 @@ class CartItem extends StatelessWidget{
                               'حذف',
                               style: theme.textTheme.headline1?.apply(
                                 color: CustomColor.greyColor,
+                                fontSizeDelta: -1
                               ),
                             ),
                           ],

@@ -8,6 +8,7 @@ import 'package:online_shop/bloc/home/home_state.dart';
 import 'package:online_shop/data/repository/banner_repository.dart';
 import 'package:online_shop/widgets/category_list.dart';
 import 'package:online_shop/widgets/custom_color.dart';
+import 'package:online_shop/widgets/most_view_products.dart';
 import 'package:online_shop/widgets/see_more.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/category_items.dart';
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             physics: BouncingScrollPhysics(
                 decelerationRate: ScrollDecelerationRate.fast),
             slivers: [
-              if (state is HomeLoadingState) ...[
+              if (state is HomeLoadingState) ...{
                 SliverToBoxAdapter(
                   child: Center(
                     child: SizedBox(
@@ -61,39 +62,47 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 )
-              ],
-              SearchAppBar(),
-              if (state is HomeRequestSuccessState) ...[
-                state.bannerList.fold((exceptionMessage) {
-                  return SliverToBoxAdapter(
-                    child: Text(exceptionMessage),
-                  );
-                }, (listBanners) {
-                  return BannerSlider(listBanners);
-                })
-              ],
-              if (state is HomeRequestSuccessState) ...[
-                state.categoryList.fold((exceptionMessage) {
-                  return SliverToBoxAdapter(
-                    child: Text(exceptionMessage),
-                  );
-                }, (categoryList) {
-                  return CategoryListTitle(categoryList);
-                })
-              ],
-              SeeMore(text: 'پر فروش ترین ها'),
-              if (state is HomeRequestSuccessState) ...[
-                state.productList.fold((exceptionMessage) {
-                  return SliverToBoxAdapter(
-                    child: Text(exceptionMessage),
-                  );
-                }, (productList) {
-                  return ProductList(productList);
-                })
-              ],
-              SeeMore(text: 'پر بازدید ترین ها'),
+              }else...{
+                SearchAppBar(),
+                if (state is HomeRequestSuccessState) ...[
+                  state.bannerList.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(
+                      child: Text(exceptionMessage),
+                    );
+                  }, (listBanners) {
+                    return BannerSlider(listBanners);
+                  })
+                ],
+                if (state is HomeRequestSuccessState) ...[
+                  state.categoryList.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(
+                      child: Text(exceptionMessage),
+                    );
+                  }, (categoryList) {
+                    return CategoryListTitle(categoryList);
+                  })
+                ],
+                SeeMore(text: 'پر فروش ترین ها'),
+                if (state is HomeRequestSuccessState) ...[
+                  state.bestSellerProductList.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(
+                      child: Text(exceptionMessage),
+                    );
+                  }, (productList) {
+                    return BestSellerProducts(productList);
+                  })
+                ],
+                SeeMore(text: 'پر بازدید ترین ها'),
 
-              // ProductList(),
+                if(state is HomeRequestSuccessState)...[
+                  state.hotestProductList.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(child: Text(exceptionMessage));
+                  }, (productList) {
+                    return MostViewProducts(productList);
+                  })
+                ]
+              },
+
             ],
           );
         },

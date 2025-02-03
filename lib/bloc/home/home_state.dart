@@ -14,6 +14,8 @@ class HomeRequestSuccessState extends HomeState {
   Either<String, List<BannerCampaign>> bannerList;
   Either<String, List<Category>> categoryList;
   Either<String, List<Product>> productList;
-
-  HomeRequestSuccessState(this.bannerList, this.categoryList,this.productList);
+  Either<String, List<Product>> hotestProductList;
+  Either<String, List<Product>> bestSellerProductList;
+  HomeRequestSuccessState(this.bannerList, this.categoryList,this.productList,this.bestSellerProductList,this.hotestProductList);
 }
+
