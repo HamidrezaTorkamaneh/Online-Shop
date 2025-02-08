@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop/bloc/product/product_bloc.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/cached_image.dart';
@@ -9,7 +11,8 @@ import 'custom_color.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  ProductItem(this.product,{super.key});
+
+  ProductItem(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,10 @@ class ProductItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProductDetailScreen(),
+                builder: (context) => BlocProvider(
+                  create: (context) => ProductBloc(),
+                  child: ProductDetailScreen(),
+                ),
               ),
             );
           },
@@ -40,9 +46,9 @@ class ProductItem extends StatelessWidget {
                 children: [
                   Expanded(child: Container()),
                   SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CachedImage(imageUrl: product.thumbnail),
+                    height: 120,
+                    width: 120,
+                    child: Center(child: CachedImage(imageUrl: product.thumbnail)),
                   ),
                   Positioned(
                     right: 12,
@@ -135,7 +141,6 @@ class ProductItem extends StatelessWidget {
                           product.price.toString(),
                           style: theme.textTheme.headline1?.apply(
                             color: Colors.white,
-
                             fontSizeDelta: 1,
                           ),
                         )

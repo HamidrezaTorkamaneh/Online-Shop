@@ -3,20 +3,20 @@ import 'package:online_shop/widgets/product_item.dart';
 
 import '../data/model/product.dart';
 
-class MostViewProducts extends StatelessWidget{
+class MostViewProducts extends StatelessWidget {
   List<Product> productList;
-   MostViewProducts(this.productList,{super.key});
+
+  MostViewProducts(this.productList, {super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 230,
-
         child: Padding(
           padding: const EdgeInsets.only(right: 33),
           child: ListView.builder(
+            physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
             itemCount: productList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {

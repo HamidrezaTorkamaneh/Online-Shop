@@ -17,6 +17,7 @@ class BestSellerProducts extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(right: 33),
           child: ListView.builder(
+            physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
             itemCount: productList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {

@@ -39,8 +39,8 @@ class PriceTagButoon extends StatelessWidget {
                   child: Row(
                 children: [
                   Container(
-                    width: 25,
-                    height: 15,
+                    width: 22,
+                    height: 22,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       color: CustomColor.redColor,
@@ -49,7 +49,7 @@ class PriceTagButoon extends StatelessWidget {
                       child: Text(
                         '٪۵',
                         style: theme.textTheme.headline1?.apply(
-                          fontSizeDelta: -1,
+                          fontSizeDelta: -1.5,
                           color: Colors.white,
                         ),
                       ),
@@ -74,7 +74,7 @@ class PriceTagButoon extends StatelessWidget {
                         '۴۵,۳۵۰,۰۰۰',
                         style: theme.textTheme.headline1?.apply(
                           color: Colors.white,
-                          fontSizeDelta: 1,
+                          fontSizeDelta: 0,
                         ),
                       )
                     ],
@@ -84,7 +84,7 @@ class PriceTagButoon extends StatelessWidget {
                     'تومان',
                     style: theme.textTheme.headline1?.apply(
                       color: Colors.white,
-                      fontSizeDelta: 2,
+                      fontSizeDelta: 1,
                     ),
                   ),
                 ],

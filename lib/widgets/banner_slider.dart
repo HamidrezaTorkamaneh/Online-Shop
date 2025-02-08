@@ -19,6 +19,7 @@ class BannerSlider extends StatelessWidget{
           SizedBox(
             height: 177,
             child: PageView.builder(
+              physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
               controller: controller,
               itemCount: 3,
               itemBuilder: (context, index) {
