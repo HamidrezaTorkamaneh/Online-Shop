@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop/bloc/product/product_bloc.dart';
 import 'package:online_shop/bloc/product/product_event.dart';
 import 'package:online_shop/bloc/product/product_state.dart';
+import 'package:online_shop/data/model/variant_type.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
+import 'package:online_shop/widgets/color_variant.dart';
 import 'package:online_shop/widgets/custom_app_bar2.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/price_tag_button.dart';
@@ -19,8 +21,6 @@ class ProductDetailScreen extends StatefulWidget {
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
-
-
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
@@ -29,22 +29,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     BlocProvider.of<ProductBloc>(context).add(ProductInitializeEvent());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
       backgroundColor: CustomColor.backGroundColor,
-      body: BlocBuilder<ProductBloc,ProductState>(
-        builder: ((context,state){
+      body: BlocBuilder<ProductBloc, ProductState>(
+        builder: ((context, state) {
           return SafeArea(
             child: CustomScrollView(
               physics: BouncingScrollPhysics(
                   decelerationRate: ScrollDecelerationRate.fast),
               slivers: [
-                if(state is ProductDetailLoadingState)...[
+                if (state is ProductDetailLoadingState) ...[
                   SliverToBoxAdapter(
                     child: Center(
-                      child:  SizedBox(
+                      child: SizedBox(
                         height: 24,
                         width: 24,
                         child: CircularProgressIndicator(),
@@ -68,39 +69,43 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                 ),
                 // SizedBox(height: 20),
-                if(state is ProductDetailResponseState)...[
-                  state.getProductImage.fold((exceptionMessage) {
-                   return SliverToBoxAdapter(
+                if (state is ProductDetailResponseState) ...[
+                  state.productImages.fold((exceptionMessage) {
+                    return SliverToBoxAdapter(
                       child: Text(exceptionMessage),
                     );
-
-                  }, (productImageList){
-                   return GalleryWidget(productImageList);
+                  }, (productImageList) {
+                    return GalleryWidget(productImageList);
                   })
                 ],
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(44, 20, 44, 10),
-                    child: Text(
-                      'انتخاب رنگ',
-                      style: theme.textTheme.headline1?.apply(
-                        fontSizeDelta: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 44, right: 44, bottom: 20),
-                    child: Row(
-                      children: [
-                        SelectColor(),
-                        SelectColor(),
-                        SelectColor(),
-                      ],
-                    ),
-                  ),
-                ),
+                // SliverToBoxAdapter(
+                //   child: Padding(
+                //     padding: const EdgeInsets.fromLTRB(44, 20, 44, 10),
+                //     child: Text(
+                //       'انتخاب رنگ',
+                //       style: theme.textTheme.headline1?.apply(
+                //         fontSizeDelta: 1,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                if (state is ProductDetailResponseState) ...[
+                  state.productVariant.fold((l) {
+                    return SliverToBoxAdapter(
+                      child: Text(l),
+                    );
+                  }, (variantList) {
+                    for (var variant in variantList) {
+                      print(variant.variantType.title);
+                      for (var variantObject in variant.variantList) {
+                        print(variantObject.name);
+                      }
+                    }
+                    return SliverToBoxAdapter(
+                      child: Text('dsaassad'),
+                    );
+                  })
+                ],
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(44, 0, 44, 10),
@@ -114,7 +119,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 44, right: 44, bottom: 10),
+                    padding:
+                        const EdgeInsets.only(left: 44, right: 44, bottom: 10),
                     child: Row(
                       children: [
                         StorageItem(storage: '۱۲۸'),
@@ -130,7 +136,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       SpecificationItem(specification: 'مشخصات فنی:'),
                       SpecificationItem(specification: 'توضیحات محصول:'),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 44, vertical: 10),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 44, vertical: 10),
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         width: 340,
                         height: 46,
@@ -253,7 +260,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           );
         }),
-
       ),
     );
   }
