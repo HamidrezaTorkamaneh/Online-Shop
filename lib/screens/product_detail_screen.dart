@@ -1,18 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop/bloc/product/product_bloc.dart';
 import 'package:online_shop/bloc/product/product_event.dart';
 import 'package:online_shop/bloc/product/product_state.dart';
-import 'package:online_shop/data/model/variant_type.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
-import 'package:online_shop/widgets/color_variant.dart';
 import 'package:online_shop/widgets/custom_app_bar2.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/price_tag_button.dart';
-import 'package:online_shop/widgets/select_color.dart';
 import 'package:online_shop/widgets/specification_item.dart';
 import 'package:online_shop/widgets/storage_item.dart';
+import 'package:online_shop/widgets/variant_container.dart';
 import '../widgets/add_to_basket_button.dart';
 import '../widgets/gallery_widget.dart';
 
@@ -94,42 +91,36 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     return SliverToBoxAdapter(
                       child: Text(l),
                     );
-                  }, (variantList) {
-                    for (var variant in variantList) {
-                      print(variant.variantType.title);
-                      for (var variantObject in variant.variantList) {
-                        print(variantObject.name);
-                      }
-                    }
-                    return SliverToBoxAdapter(
-                      child: Text('dsaassad'),
-                    );
+                  }, (productVariantList) {
+                    return VariantContainer(productVariantList);
+
                   })
                 ],
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(44, 0, 44, 10),
-                    child: Text(
-                      'انتخاب رنگ',
-                      style: theme.textTheme.headline1?.apply(
-                        fontSizeDelta: 1,
-                      ),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 44, right: 44, bottom: 10),
-                    child: Row(
-                      children: [
-                        StorageItem(storage: '۱۲۸'),
-                        StorageItem(storage: '۲۵۶'),
-                        StorageItem(storage: '۵۱۲'),
-                      ],
-                    ),
-                  ),
-                ),
+
+                // SliverToBoxAdapter(
+                //   child: Padding(
+                //     padding: const EdgeInsets.fromLTRB(44, 0, 44, 10),
+                //     child: Text(
+                //       'انتخاب رنگ',
+                //       style: theme.textTheme.headline1?.apply(
+                //         fontSizeDelta: 1,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // SliverToBoxAdapter(
+                //   child: Padding(
+                //     padding:
+                //         const EdgeInsets.only(left: 44, right: 44, bottom: 10),
+                //     child: Row(
+                //       children: [
+                //         StorageItem(storage: '۱۲۸'),
+                //         StorageItem(storage: '۲۵۶'),
+                //         StorageItem(storage: '۵۱۲'),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
