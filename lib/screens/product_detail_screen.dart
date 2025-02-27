@@ -3,18 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop/bloc/product/product_bloc.dart';
 import 'package:online_shop/bloc/product/product_event.dart';
 import 'package:online_shop/bloc/product/product_state.dart';
+import 'package:online_shop/data/model/product.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/custom_app_bar2.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/price_tag_button.dart';
 import 'package:online_shop/widgets/specification_item.dart';
-import 'package:online_shop/widgets/storage_item.dart';
-import 'package:online_shop/widgets/variant_container.dart';
 import '../widgets/add_to_basket_button.dart';
 import '../widgets/gallery_widget.dart';
+import '../widgets/variant_container_generator.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
+  Product product;
+
+  ProductDetailScreen(this.product, {super.key});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -23,7 +25,8 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductBloc>(context).add(ProductInitializeEvent());
+    BlocProvider.of<ProductBloc>(context).add(
+        ProductInitializeEvent(widget.product.id, widget.product.category));
     super.initState();
   }
 
@@ -50,14 +53,50 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   )
                 ],
-                SliverToBoxAdapter(
-                  child: CustomAppBar2(text: 'آیفون'),
-                ),
+                if (state is ProductDetailResponseState) ...{
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      margin: EdgeInsets.symmetric(horizontal: 44, vertical: 25),
+                      height: 46,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          CustomIcon(icon: 'right_arrow_circle1', color: Colors.black, size: 25,onTap: (){
+                            Navigator.of(context).pop();
+                          },),
+                          Expanded(
+                            child: state.productCategory.fold((l) {
+                              return Text(
+                                'دسته بندی',
+                                textAlign: TextAlign.center,
+                                style: theme.textTheme.headline1
+                                    ?.apply(color: CustomColor.blueColor,
+                                    fontSizeDelta: 3),
+                              );
+
+                            }, (productCategory) {
+                              return Text(productCategory.title!,textAlign: TextAlign.center,
+                                style: theme.textTheme.headline1
+                                    ?.apply(color: CustomColor.blueColor,
+                                    fontSizeDelta:1),);
+                            })
+                          ),
+                          CustomIcon(icon: 'apple', color: CustomColor.blueColor, size: 25),
+                        ],
+                      ),
+                    ),
+                  ),
+                },
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Text(
-                      'آیفون SE 2022',
+                      widget.product.name,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.headline1?.apply(
                         fontSizeDelta: 5,
@@ -72,7 +111,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Text(exceptionMessage),
                     );
                   }, (productImageList) {
-                    return GalleryWidget(productImageList);
+                    return GalleryWidget(
+                        widget.product.thumbnail, productImageList);
                   })
                 ],
                 // SliverToBoxAdapter(
@@ -92,8 +132,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Text(l),
                     );
                   }, (productVariantList) {
-                    return VariantContainer(productVariantList);
-
+                    return VariantContainerGenerator(productVariantList);
                   })
                 ],
 

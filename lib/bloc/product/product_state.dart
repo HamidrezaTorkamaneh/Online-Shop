@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:online_shop/data/model/category.dart';
 import 'package:online_shop/data/model/product_variant.dart';
 import 'package:online_shop/data/model/variant_type.dart';
 
@@ -13,6 +14,7 @@ class ProductDetailLoadingState extends ProductState {}
 class ProductDetailResponseState extends ProductState {
   Either<String, List<ProductImage>> productImages;
   Either<String, List<ProductVariant>> productVariant;
+  Either<String, Category> productCategory;
 
-  ProductDetailResponseState(this.productImages, this.productVariant);
+  ProductDetailResponseState(this.productImages, this.productVariant ,this.productCategory);
 }

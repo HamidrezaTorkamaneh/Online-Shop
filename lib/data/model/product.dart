@@ -10,7 +10,7 @@ class Product {
   int quantity;
   String category;
   int? realPrice;
-  num? persent;
+  num? percent;
 
   Product(
     this.id,
@@ -25,7 +25,7 @@ class Product {
     this.category,
   ){
     realPrice = price + discountPrice;
-    persent=((price - realPrice!)/price)*100;
+    percent=((price - realPrice!)/price)*100;
   }
 
 

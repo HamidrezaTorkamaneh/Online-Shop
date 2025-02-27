@@ -33,7 +33,7 @@ class ProductItem extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
                   create: (context) => ProductBloc(),
-                  child: ProductDetailScreen(),
+                  child: ProductDetailScreen(product),
                 ),
               ),
             );
@@ -70,7 +70,7 @@ class ProductItem extends StatelessWidget {
                       ),
                       child: Center(
                         child: Text(
-                          '${product.persent!.round().toString()} %',
+                          '${product.percent!.round().toString()} %',
                           style: theme.textTheme.headline1?.apply(
                             fontSizeDelta: -3,
                             color: Colors.white,
