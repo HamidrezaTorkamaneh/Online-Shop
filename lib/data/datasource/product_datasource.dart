@@ -6,7 +6,7 @@ import '../../di/di.dart';
 abstract class IProductDatasource {
   Future<List<Product>> getProducts();
 
-  Future<List<Product>> getHotest();
+  Future<List<Product>> getHottest();
 
   Future<List<Product>> getBestSeller();
 }
@@ -46,7 +46,7 @@ class ProductRemoteDatasource extends IProductDatasource {
   }
 
   @override
-  Future<List<Product>> getHotest() async {
+  Future<List<Product>> getHottest() async {
     try {
       Map<String,String> qParams={
         'filter':'popularity="Hotest"'

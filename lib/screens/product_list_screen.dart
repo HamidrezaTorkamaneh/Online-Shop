@@ -1,64 +1,131 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop/bloc/categoryProduct/category_product_bloc.dart';
+import 'package:online_shop/bloc/categoryProduct/category_product_event.dart';
+import 'package:online_shop/bloc/categoryProduct/category_product_state.dart';
+import 'package:online_shop/data/model/category.dart';
 import 'package:online_shop/widgets/product_item.dart';
-
-import '../data/repository/category_repository.dart';
-import '../widgets/custom_app_bar1.dart';
+import '../widgets/Custom_icon.dart';
 import '../widgets/custom_color.dart';
 
-class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({super.key});
+class ProductListScreen extends StatefulWidget {
+  Category category;
+
+  ProductListScreen(this.category, {super.key});
+
+  @override
+  State<ProductListScreen> createState() => _ProductListScreenState();
+}
+
+class _ProductListScreenState extends State<ProductListScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<CategoryProductBloc>(context)
+        .add(CategoryProductInitialize(widget.category.id!));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(0),
-        child: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarColor: CustomColor.backGroundColor,
-            systemNavigationBarColor: CustomColor.backGroundColor,
-            systemNavigationBarIconBrightness: Brightness.dark,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(0),
+          child: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarColor: CustomColor.backGroundColor,
+              systemNavigationBarColor: CustomColor.backGroundColor,
+              systemNavigationBarIconBrightness: Brightness.dark,
+            ),
           ),
         ),
-      ),
-      backgroundColor: CustomColor.backGroundColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          physics: BouncingScrollPhysics(
-              decelerationRate: ScrollDecelerationRate.fast),
-          slivers: [
-            SliverToBoxAdapter(
-              child: CustomAppBar1(text: 'پرفروش ترین ها'),
-            ),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 44),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return Container(
-                    height: 160,
-                    width: 170,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+        backgroundColor: CustomColor.backGroundColor,
+        body: BlocBuilder<CategoryProductBloc,CategoryProductState>(
+          builder: (context, state) {
+            return SafeArea(
+              child: CustomScrollView(
+                physics: BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.fast),
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 44, vertical: 25),
+                      height: 46,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      child: Row(
+                        children: [
+                          CustomIcon(
+                            icon: 'right_arrow_circle1',
+                            color: Colors.black,
+                            size: 25,
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          Expanded(
+                            child: Text(
+                              widget.category.title!,
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.headline1?.apply(
+                                  color: CustomColor.blueColor,
+                                  fontSizeDelta: 3),
+                            ),
+                          ),
+                          CustomIcon(
+                              icon: 'apple',
+                              color: CustomColor.blueColor,
+                              size: 25),
+                        ],
+                      ),
                     ),
-                    // child: ProductItem(),
-                    child: Text('1'),
+                  ),
+                  if(state is CategoryProductLoadingState)...{
+                    SliverToBoxAdapter(
+                      child: Center(
+                        child: SizedBox(
+                          height: 24,
+                          width: 24,
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    )
 
-                  );
-                }),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 2 / 2.8,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
+                  },
+                  if(state is CategoryProductResponseSuccessState)...{
+                    state.productListByCategory.fold((l) {
+                     return SliverToBoxAdapter(
+                        child: Text(l),
+                      );
+
+                    }, (productList) {
+                      return SliverPadding(
+                        padding: EdgeInsets.symmetric(horizontal: 44),
+                        sliver: SliverGrid(
+                          delegate: SliverChildBuilderDelegate((context, index) {
+                            return ProductItem(productList[index]);
+                          },childCount: productList.length),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 2 / 2.8,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                          ),
+                        ),
+                      );
+                    })
+                  }
+                ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
+            );
+          },
+        ));
   }
 }

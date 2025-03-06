@@ -36,7 +36,7 @@ class ProductRepository extends IProductRepository {
   @override
   Future<Either<String, List<Product>>> getHotest() async{
     try{
-      var response= await _datasource.getHotest();
+      var response= await _datasource.getHottest();
       return right(response);
     }on ApiException catch(ex){
       return left(ex.message ?? 'خطا محتوا متنی ندارد');

@@ -5,11 +5,11 @@ import 'package:online_shop/bloc/product/product_event.dart';
 import 'package:online_shop/bloc/product/product_state.dart';
 import 'package:online_shop/data/model/product.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
-import 'package:online_shop/widgets/custom_app_bar2.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/price_tag_button.dart';
-import 'package:online_shop/widgets/specification_item.dart';
+import 'package:online_shop/widgets/product_properties.dart';
 import '../widgets/add_to_basket_button.dart';
+import '../widgets/detail_of_product.dart';
 import '../widgets/gallery_widget.dart';
 import '../widgets/variant_container_generator.dart';
 
@@ -23,6 +23,8 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+
+
   @override
   void initState() {
     BlocProvider.of<ProductBloc>(context).add(
@@ -115,17 +117,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         widget.product.thumbnail, productImageList);
                   })
                 ],
-                // SliverToBoxAdapter(
-                //   child: Padding(
-                //     padding: const EdgeInsets.fromLTRB(44, 20, 44, 10),
-                //     child: Text(
-                //       'انتخاب رنگ',
-                //       style: theme.textTheme.headline1?.apply(
-                //         fontSizeDelta: 1,
-                //       ),
-                //     ),
-                //   ),
-                // ),
+
                 if (state is ProductDetailResponseState) ...[
                   state.productVariant.fold((l) {
                     return SliverToBoxAdapter(
@@ -136,35 +128,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   })
                 ],
 
-                // SliverToBoxAdapter(
-                //   child: Padding(
-                //     padding: const EdgeInsets.fromLTRB(44, 0, 44, 10),
-                //     child: Text(
-                //       'انتخاب رنگ',
-                //       style: theme.textTheme.headline1?.apply(
-                //         fontSizeDelta: 1,
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // SliverToBoxAdapter(
-                //   child: Padding(
-                //     padding:
-                //         const EdgeInsets.only(left: 44, right: 44, bottom: 10),
-                //     child: Row(
-                //       children: [
-                //         StorageItem(storage: '۱۲۸'),
-                //         StorageItem(storage: '۲۵۶'),
-                //         StorageItem(storage: '۵۱۲'),
-                //       ],
-                //     ),
-                //   ),
-                // ),
+
                 SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      SpecificationItem(specification: 'مشخصات فنی:'),
-                      SpecificationItem(specification: 'توضیحات محصول:'),
+                      if(state is ProductDetailResponseState)...{
+                        state.productProperties.fold((l) {
+                          return SliverToBoxAdapter(
+                            child: Text(l),
+                          );
+                        }, (propertyList) {
+                          return ProductProperties(propertyList);
+                        })
+                      },
+                      DetailOfProduct(specification: widget.product.description),
                       Container(
                         margin:
                             EdgeInsets.symmetric(horizontal: 44, vertical: 10),

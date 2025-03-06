@@ -98,7 +98,7 @@ class ProductItem extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 7),
                 height: 53,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(

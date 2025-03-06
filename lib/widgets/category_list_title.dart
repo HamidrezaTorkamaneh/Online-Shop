@@ -4,7 +4,8 @@ import 'category_items.dart';
 
 class CategoryListTitle extends StatelessWidget {
   List<Category> listCategories;
-  CategoryListTitle(this.listCategories,{super.key});
+
+  CategoryListTitle(this.listCategories, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,8 @@ class CategoryListTitle extends StatelessWidget {
             SizedBox(
               height: 100,
               child: ListView.builder(
-                physics: BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+                physics: BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.fast),
                 itemCount: listCategories.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
@@ -36,5 +38,4 @@ class CategoryListTitle extends StatelessWidget {
       ),
     );
   }
-
 }
