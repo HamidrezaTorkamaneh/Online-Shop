@@ -1,17 +1,25 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:online_shop/data/model/card_item.dart';
+import 'package:online_shop/util/extensions/string_extensions.dart';
+import 'package:online_shop/widgets/cached_image.dart';
 import 'Custom_icon.dart';
 import 'custom_color.dart';
 
-class CartItem extends StatelessWidget{
-  CartItem({super.key});
+class CartItem extends StatelessWidget {
+  String storage;
+  String? color;
+  String colorName;
+  CardItem cardItem;
+  CartItem(
+      {super.key, required this.colorName, this.color, required this.storage,required this.cardItem});
+
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme=Theme.of(context);
+    final ThemeData theme = Theme.of(context);
+
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 44,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 44, vertical: 10),
       width: double.infinity,
       height: 240,
       decoration: BoxDecoration(
@@ -25,16 +33,22 @@ class CartItem extends StatelessWidget{
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(18, 32, 10, 41),
-                child: Image.asset('assets/images/iphone.png'),
+                child: SizedBox(
+                  height: 107,
+                  width: 80  ,
+                  child: Center(
+                    child: CachedImage(imageUrl: cardItem.thumbnail),
+                  ),
+                ),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 17),
                   Text(
-                    'آیفون ۱۳ پرو مکس',
-                    style: theme.textTheme.headline1?.apply(
-                        color: Colors.black, fontSizeDelta: 6),
+                    cardItem.name,
+                    style: theme.textTheme.headline1
+                        ?.apply(color: Colors.black, fontSizeDelta: 6),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -48,20 +62,14 @@ class CartItem extends StatelessWidget{
                   Row(
                     children: [
                       Text(
-                        '۴۶,۰۰۰,۰۰۰',
+                        '${cardItem.realPrice.toString()} تومان ',
                         style: theme.textTheme.headline1?.apply(
                           color: CustomColor.greyColor,
                           fontSizeDelta: -1,
                         ),
                       ),
                       SizedBox(width: 5),
-                      Text(
-                        'تومان',
-                        style: theme.textTheme.headline1?.apply(
-                          color: CustomColor.greyColor,
-                          fontSizeDelta: -1,
-                        ),
-                      ),
+
                       SizedBox(width: 5),
                       Container(
                         width: 25,
@@ -72,9 +80,9 @@ class CartItem extends StatelessWidget{
                         ),
                         child: Center(
                           child: Text(
-                            '٪۵',
+                            '${cardItem.percent!.round().toString()} %',
                             style: theme.textTheme.headline1?.apply(
-                              fontSizeDelta: -1,
+                              fontSizeDelta: -3,
                               color: Colors.white,
                             ),
                           ),
@@ -93,56 +101,47 @@ class CartItem extends StatelessWidget{
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                             border: Border.all(
-                                width: 1,
-                                color: CustomColor.greyColor)),
-                        child: Row(
-                          children: [
-                            Text(
-                              '۲۵۶ گیگابایت',
-                              style: theme.textTheme.headline1?.apply(
-                                color: CustomColor.greyColor,
-                                fontSizeDelta: -2,
-                              ),
+                                width: 1, color: CustomColor.greyColor)),
+                        child: Center(
+                          child: Text(
+                            storage,
+                            style: theme.textTheme.headline1?.apply(
+                              color: CustomColor.greyColor,
+                              fontSizeDelta: -2,
                             ),
-                            SizedBox(width: 10),
-                            CustomIcon(
-                                icon: 'change',
-                                color: CustomColor.greyColor,
-                                size: 14),
-                          ],
+                          ),
                         ),
                       ),
                       SizedBox(width: 10),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 5),
-                        width: 100,
+                        // width: 100,
                         height: 24,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                             border: Border.all(
-                                width: 1,
-                                color: CustomColor.greyColor)),
+                                width: 1, color: CustomColor.greyColor)),
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              maxRadius: 5,
-                              backgroundColor:
-                              CustomColor.greenColor2,
-                            ),
-                            SizedBox(width: 5),
                             Text(
-                              'سبز کله غازی',
+                              colorName,
                               style: theme.textTheme.headline1?.apply(
                                 color: CustomColor.greyColor,
                                 fontSizeDelta: -2,
                               ),
                             ),
-                            SizedBox(width: 5),
-                            CustomIcon(
-                                icon: 'change',
-                                color: CustomColor.greyColor,
-                                size: 14),
+                            SizedBox(width: 8),
+                            if (color != null) ...{
+                              Container(
+                                width: 10,
+                                height: 10,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: color.parseToColor(),
+                                ),
+                              )
+                            }
                           ],
                         ),
                       ),
@@ -207,29 +206,31 @@ class CartItem extends StatelessWidget{
                       SizedBox(width: 10),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        width: 62,
+
                         height: 24,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              width: 1, color: CustomColor.greyColor),
+                              width: 1, color: CustomColor.redColor),
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
-                        child: Row(
-                          children: [
-                            CustomIcon(
-                                icon: 'delete',
-                                color: CustomColor.greyColor,
-                                size: 14),
-                            Spacer(),
-                            Text(
-                              'حذف',
-                              style: theme.textTheme.headline1?.apply(
-                                color: CustomColor.greyColor,
-                                fontSizeDelta: -1
+                        child: Center(
+                          child: Row(
+                            children: [
+                              CustomIcon(
+                                  icon: 'delete',
+                                  color: CustomColor.redColor,
+                                  size: 14),
+                              SizedBox(width: 5),
+
+                              Text(
+                                'حذف',
+                                style: theme.textTheme.headline1?.apply(
+                                    color: CustomColor.redColor,
+                                    fontSizeDelta: -1),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -247,7 +248,7 @@ class CartItem extends StatelessWidget{
           ),
           SizedBox(height: 20),
           Text(
-            '۴۵,۳۵۰,۰۰۰ تومان',
+            '${cardItem.price.toString()} تومان ',
             style: theme.textTheme.headline1?.apply(
               fontSizeDelta: 5,
             ),

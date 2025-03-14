@@ -1,35 +1,28 @@
-
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shop/bloc/authentication/auth_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:online_shop/bloc/card/card_bloc.dart';
+import 'package:online_shop/bloc/card/card_event.dart';
 import 'package:online_shop/bloc/category/category_bloc.dart';
 import 'package:online_shop/bloc/home/home_bloc.dart';
-import 'package:online_shop/data/repository/authentication_repository.dart';
+import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/screens/category_screen.dart';
-import 'package:online_shop/screens/login_screen.dart';
-
-import 'package:online_shop/screens/product_detail_screen.dart';
-import 'package:online_shop/screens/product_list_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
 import 'package:online_shop/screens/shopping_cart_screen.dart';
-import 'package:online_shop/util/auth_manager.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
-import 'package:online_shop/widgets/banner_slider.dart';
-import 'package:online_shop/widgets/category_items.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'data/datasource/authentication_datasource.dart';
 import 'di/di.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(CardItemAdapter());
+  await Hive.openBox<CardItem>('CardBox');
   await getItInit();
+
   runApp(const MyApp());
 }
 
@@ -195,13 +188,24 @@ class _MyAppState extends State<MyApp> {
 
 List<Widget> getScreens() {
   return <Widget>[
-    BlocProvider(create: (context)=> HomeBloc(),
-    child: HomeScreen(),),
+    BlocProvider(
+      create: (context) => HomeBloc(),
+      child: HomeScreen(),
+    ),
     BlocProvider(
       create: (context) => CategoryBloc(),
       child: CategoryScreen(),
     ),
-    ShoppingCartScreen(),
+    BlocProvider(
+      create: (context) {
+        var bloc = locator.get<CardBloc>();
+        bloc.add(
+          CardFetchFromHiveEvent(),
+        );
+        return bloc;
+      },
+      child: ShoppingCartScreen(),
+    ),
     ProfileScreen(),
   ];
 }

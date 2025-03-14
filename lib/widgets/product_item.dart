@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_shop/bloc/product/product_bloc.dart';
+import 'package:online_shop/bloc/card/card_bloc.dart';
+import 'package:online_shop/di/di.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/cached_image.dart';
@@ -31,8 +32,8 @@ class ProductItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (context) => ProductBloc(),
+                builder: (context) => BlocProvider<CardBloc>.value(
+                  value: locator.get<CardBloc>(),
                   child: ProductDetailScreen(product),
                 ),
               ),
