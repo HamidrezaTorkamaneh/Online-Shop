@@ -7,11 +7,29 @@ import 'package:online_shop/widgets/cart_item.dart';
 import 'package:online_shop/widgets/custom_app_bar1.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/my_button.dart';
-
+import 'package:url_launcher/url_launcher.dart';
+import 'package:zarinpal/zarinpal.dart';
 import '../data/model/card_item.dart';
 
-class ShoppingCartScreen extends StatelessWidget {
+class ShoppingCartScreen extends StatefulWidget {
   const ShoppingCartScreen({super.key});
+
+  @override
+  State<ShoppingCartScreen> createState() => _ShoppingCartScreenState();
+}
+
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  PaymentRequest _paymentRequest = PaymentRequest();
+
+  @override
+  void initState() {
+    super.initState();
+    _paymentRequest.setIsSandBox(true);
+    _paymentRequest.setAmount(1000);
+    _paymentRequest.setDescription('This is for testing application apple shop');
+    _paymentRequest.setMerchantID('fa087dea-31f5-427f-b8cb-d5371fd04187');
+    _paymentRequest.setCallbackURL('nozadikala.ir/home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +81,13 @@ class ShoppingCartScreen extends StatelessWidget {
                       ? 'سبد خرید شما خالی است!'
                       : '${state.basketFinalPrice}  تومان',
                   color: CustomColor.blueColor,
+                  onTap: (){
+                    ZarinPal().startPayment(_paymentRequest, (status, paymentGatewayUri) {
+                      if(status==100){
+                       launchUrl(Uri.parse(paymentGatewayUri!),mode: LaunchMode.externalApplication);
+                      }
+                    });
+                  },
                 )
               }
             ],

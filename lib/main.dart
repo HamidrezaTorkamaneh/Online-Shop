@@ -6,6 +6,7 @@ import 'package:online_shop/bloc/card/card_bloc.dart';
 import 'package:online_shop/bloc/card/card_event.dart';
 import 'package:online_shop/bloc/category/category_bloc.dart';
 import 'package:online_shop/bloc/home/home_bloc.dart';
+import 'package:online_shop/bloc/home/home_event.dart';
 import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
@@ -189,7 +190,11 @@ class _MyAppState extends State<MyApp> {
 List<Widget> getScreens() {
   return <Widget>[
     BlocProvider(
-      create: (context) => HomeBloc(),
+      create: (context) {
+        var bloc=HomeBloc();
+        bloc.add(HomeGetInitializeData());
+        return bloc;
+      },
       child: HomeScreen(),
     ),
     BlocProvider(
