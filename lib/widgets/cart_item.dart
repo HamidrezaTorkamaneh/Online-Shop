@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shop/data/model/card_item.dart';
+import 'package:online_shop/util/extensions/int_extension.dart';
 import 'package:online_shop/util/extensions/string_extensions.dart';
 import 'package:online_shop/widgets/cached_image.dart';
 import 'Custom_icon.dart';
@@ -62,7 +63,7 @@ class CartItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${cardItem.realPrice.toString()} تومان ',
+                        '${cardItem.realPrice.convertToPrice()} تومان ',
                         style: theme.textTheme.headline1?.apply(
                           color: CustomColor.greyColor,
                           fontSizeDelta: -1,
@@ -248,7 +249,7 @@ class CartItem extends StatelessWidget {
           ),
           SizedBox(height: 20),
           Text(
-            '${cardItem.price.toString()} تومان ',
+            '${cardItem.price.convertToPrice()} تومان ',
             style: theme.textTheme.headline1?.apply(
               fontSizeDelta: 5,
             ),

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:online_shop/bloc/card/card_bloc.dart';
 import 'package:online_shop/bloc/card/card_state.dart';
+import 'package:online_shop/util/extensions/int_extension.dart';
 import 'package:online_shop/widgets/cart_item.dart';
 import 'package:online_shop/widgets/custom_app_bar1.dart';
 import 'package:online_shop/widgets/custom_color.dart';
@@ -79,7 +80,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                 MyButton(
                   text: (state.basketFinalPrice == 0)
                       ? 'سبد خرید شما خالی است!'
-                      : '${state.basketFinalPrice}  تومان',
+                      : '${state.basketFinalPrice.convertToPrice()}  تومان',
                   color: CustomColor.blueColor,
                   onTap: (){
                     ZarinPal().startPayment(_paymentRequest, (status, paymentGatewayUri) {

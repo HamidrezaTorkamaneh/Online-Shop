@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_shop/bloc/card/card_bloc.dart';
 import 'package:online_shop/di/di.dart';
 import 'package:online_shop/screens/product_detail_screen.dart';
+import 'package:online_shop/util/extensions/int_extension.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/cached_image.dart';
 
@@ -49,7 +49,8 @@ class ProductItem extends StatelessWidget {
                   SizedBox(
                     height: 120,
                     width: 120,
-                    child: Center(child: CachedImage(imageUrl: product.thumbnail)),
+                    child:
+                        Center(child: CachedImage(imageUrl: product.thumbnail)),
                   ),
                   Positioned(
                     right: 12,
@@ -129,7 +130,7 @@ class ProductItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          product.realPrice.toString(),
+                          product.realPrice.convertToPrice(),
                           style: theme.textTheme.headline2?.apply(
                             color: Colors.white,
                             decoration: TextDecoration.lineThrough,
@@ -139,10 +140,10 @@ class ProductItem extends StatelessWidget {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          product.price.toString(),
+                          product.price.convertToPrice(),
                           style: theme.textTheme.headline1?.apply(
                             color: Colors.white,
-                            fontSizeDelta: 1,
+                            fontSizeDelta: 0,
                           ),
                         )
                       ],
@@ -165,3 +166,5 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
+
+
