@@ -6,7 +6,7 @@ import 'package:online_shop/bloc/home/home_event.dart';
 import 'package:online_shop/bloc/home/home_state.dart';
 import 'package:online_shop/widgets/category_list.dart';
 import 'package:online_shop/widgets/custom_color.dart';
-import 'package:online_shop/widgets/loading_indicator_widget.dart';
+import 'package:online_shop/widgets/loading_animation.dart';
 import 'package:online_shop/widgets/most_view_products.dart';
 import 'package:online_shop/widgets/see_more.dart';
 import '../widgets/banner_slider.dart';
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
 Widget _getHomeScreenContent(HomeState state, BuildContext context) {
   if (state is HomeLoadingState) {
     return const Center(
-      child: LoadingIndicatorWidget(),
+      child: LoadingAnimation(),
     );
   } else if (state is HomeRequestSuccessState) {
     return RefreshIndicator(

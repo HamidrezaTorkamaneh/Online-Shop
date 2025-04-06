@@ -7,9 +7,9 @@ import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/add_to_basket_button.dart';
 import 'package:online_shop/widgets/detail_of_product.dart';
 import 'package:online_shop/widgets/gallery_widget.dart';
+import 'package:online_shop/widgets/loading_animation.dart';
 import 'package:online_shop/widgets/price_tag_button.dart';
 import 'package:online_shop/widgets/product_properties.dart';
-
 import 'custom_color.dart';
 import 'variant_container_generator.dart';
 
@@ -24,22 +24,18 @@ class DetailContentWidget extends StatelessWidget{
       backgroundColor: CustomColor.backGroundColor,
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: ((context, state) {
+          if(state is ProductDetailLoadingState){
+            return  const Center(
+              child: LoadingAnimation(),
+            );
+          }
           return SafeArea(
             child: CustomScrollView(
               physics: BouncingScrollPhysics(
                   decelerationRate: ScrollDecelerationRate.fast),
               slivers: [
-                if (state is ProductDetailLoadingState) ...[
-                  SliverToBoxAdapter(
-                    child: Center(
-                      child: SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: CircularProgressIndicator(),
-                      ),
-                    ),
-                  )
-                ],
+
+
                 if (state is ProductDetailResponseState) ...{
                   SliverToBoxAdapter(
                     child: Container(
@@ -79,18 +75,20 @@ class DetailContentWidget extends StatelessWidget{
                     ),
                   ),
                 },
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Text(
-                      parentWidget.product.name,
-                      textAlign: TextAlign.center,
-                      style: theme.textTheme.headline1?.apply(
-                        fontSizeDelta: 5,
+                if(state is ProductDetailResponseState)...{
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        parentWidget.product.name,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headline1?.apply(
+                          fontSizeDelta: 5,
+                        ),
                       ),
                     ),
                   ),
-                ),
+                },
                 // SizedBox(height: 20),
                 if (state is ProductDetailResponseState) ...[
                   state.productImages.fold((exceptionMessage) {
@@ -126,127 +124,134 @@ class DetailContentWidget extends StatelessWidget{
                           return ProductProperties(propertyList);
                         })
                       },
-                      DetailOfProduct(specification: parentWidget.product.description),
-                      Container(
-                        margin:
-                        EdgeInsets.symmetric(horizontal: 44, vertical: 10),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        width: 340,
-                        height: 46,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(width: 1, color: Colors.black),
-                          color: Colors.white,
-                        ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'نظرات کاربران:',
-                              style: theme.textTheme.headline1?.apply(
-                                fontSizeDelta: 2,
+                      if(state is  ProductDetailResponseState)...{
+                        DetailOfProduct(specification: parentWidget.product.description),
+                      },
+                      if(state is ProductDetailResponseState)...{
+                        Container(
+                          margin:
+                          EdgeInsets.symmetric(horizontal: 44, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          width: 340,
+                          height: 46,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(width: 1, color: Colors.black),
+                            color: Colors.white,
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'نظرات کاربران:',
+                                style: theme.textTheme.headline1?.apply(
+                                  fontSizeDelta: 2,
+                                ),
                               ),
-                            ),
-                            Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  height: 26,
-                                  width: 26,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 10,
-                                  child: Container(
+                              Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Container(
                                     margin: EdgeInsets.only(left: 10),
                                     height: 26,
                                     width: 26,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      color: Colors.blue,
+                                      color: Colors.red,
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  right: 20,
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 26,
-                                    width: 26,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.green,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 30,
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 26,
-                                    width: 26,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.yellow,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 40,
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 26,
-                                    width: 26,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.grey,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '۱۰+',
-                                        style: theme.textTheme.headline1
-                                            ?.apply(color: Colors.white),
+                                  Positioned(
+                                    right: 10,
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      height: 26,
+                                      width: 26,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.blue,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Text(
-                              'مشاهده',
-                              style: theme.textTheme.headline1?.apply(
-                                fontSizeDelta: 2,
-                                color: CustomColor.blueColor,
+                                  Positioned(
+                                    right: 20,
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      height: 26,
+                                      width: 26,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 30,
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      height: 26,
+                                      width: 26,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.yellow,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 40,
+                                    child: Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      height: 26,
+                                      width: 26,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Colors.grey,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '۱۰+',
+                                          style: theme.textTheme.headline1
+                                              ?.apply(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                            SizedBox(width: 5),
-                            CustomIcon(
-                                icon: 'left_arrow_circle',
-                                color: CustomColor.blueColor,
-                                size: 20),
-                          ],
+                              Spacer(),
+                              Text(
+                                'مشاهده',
+                                style: theme.textTheme.headline1?.apply(
+                                  fontSizeDelta: 2,
+                                  color: CustomColor.blueColor,
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              CustomIcon(
+                                  icon: 'left_arrow_circle',
+                                  color: CustomColor.blueColor,
+                                  size: 20),
+                            ],
+                          ),
                         ),
-                      ),
+                      }
+
                     ],
                   ),
                 ),
                 SliverPadding(padding: EdgeInsets.only(top: 10)),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 44),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AddToBasketButton(parentWidget.product),
-                        PriceTagButoon(),
-                      ],
+                if(state is ProductDetailResponseState)...{
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 44),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          AddToBasketButton(parentWidget.product),
+                          PriceTagButoon(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                },
                 SliverPadding(padding: EdgeInsets.only(bottom: 20)),
               ],
             ),
