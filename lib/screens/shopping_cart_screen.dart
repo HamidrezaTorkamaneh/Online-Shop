@@ -61,6 +61,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                           childCount: cardItemList.length,
                           (context, index) {
                             return CartItem(
+                              index,
                               storage: '۲۵۶ گیگابایت',
                               color: 'EC407A',
                               colorName: 'آبی',
@@ -80,8 +81,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                 MyButton(
                   text: (state.basketFinalPrice == 0)
                       ? 'سبد خرید شما خالی است!'
-                      : '${state.basketFinalPrice.convertToPrice()}  تومان',
-                  color: CustomColor.blueColor,
+                      : ' پرداخت: ${state.basketFinalPrice.convertToPrice()}  تومان',
+                  color: CustomColor.blueColor2,
                   onTap: (){
                     ZarinPal().startPayment(_paymentRequest, (status, paymentGatewayUri) {
                       if(status==100){

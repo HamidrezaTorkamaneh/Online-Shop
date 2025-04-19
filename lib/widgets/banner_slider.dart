@@ -36,7 +36,7 @@ class BannerSlider extends StatelessWidget{
               dotWidth: 6,
               dotColor: Colors.white,
               expansionFactor: 4,
-              activeDotColor: CustomColor.purpleColor,
+              activeDotColor: CustomColor.blueColor1,
       
       
             ),),

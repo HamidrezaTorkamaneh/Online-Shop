@@ -37,7 +37,7 @@ class _ColorVariantListState extends State<ColorVariantList> {
               border: (selectedIndex == index)
                   ? Border.all(
                       width: 1,
-                      color: CustomColor.blueColor,
+                      color: CustomColor.blueColor2,
                       strokeAlign: BorderSide.strokeAlignOutside)
                   : Border.all(width: 1.5, color: Colors.white),
             ),

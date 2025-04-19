@@ -29,7 +29,7 @@ class _StorageVariantListState extends State<StorageVariantList> {
               border: (selectedIndex == index)
                   ? Border.all(
                       width: 2,
-                      color: CustomColor.blueColor,
+                      color: CustomColor.blueColor2,
                       strokeAlign: BorderSide.strokeAlignOutside)
                   : Border.all(width: 0.5, color: Colors.grey),
               borderRadius: BorderRadius.circular(8),

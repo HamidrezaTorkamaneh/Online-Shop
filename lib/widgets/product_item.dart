@@ -56,7 +56,7 @@ class ProductItem extends StatelessWidget {
                     right: 12,
                     child: CustomIcon(
                       icon: 'active_fav',
-                      color: CustomColor.blueColor,
+                      color: CustomColor.blueColor2,
                       size: 20,
                     ),
                   ),
@@ -107,13 +107,13 @@ class ProductItem extends StatelessWidget {
                     bottomRight: Radius.circular(15),
                     bottomLeft: Radius.circular(15),
                   ),
-                  color: CustomColor.blueColor,
+                  color: CustomColor.blueColor2,
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 25,
                       spreadRadius: -15,
                       offset: Offset(0.0, 15),
-                      color: CustomColor.blueColor,
+                      color: CustomColor.blueColor2,
                     )
                   ],
                 ),

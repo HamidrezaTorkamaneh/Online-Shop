@@ -17,14 +17,14 @@ import 'package:online_shop/data/repository/category_repository.dart';
 import 'package:online_shop/data/repository/comment_repository.dart';
 import 'package:online_shop/data/repository/product_detail_repository.dart';
 import 'package:online_shop/data/repository/product_repository.dart';
+import 'package:online_shop/util/dio_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var locator = GetIt.instance;
 
 Future<void> getItInit() async {
   //components
-  locator.registerSingleton<Dio>(
-      Dio(BaseOptions(baseUrl: 'https://startflutter.ir/api/')));
+  locator.registerSingleton<Dio>(DioProvider().createDio());
 
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());

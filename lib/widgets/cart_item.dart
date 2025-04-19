@@ -1,5 +1,8 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop/bloc/card/card_bloc.dart';
+import 'package:online_shop/bloc/card/card_event.dart';
 import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/util/extensions/int_extension.dart';
 import 'package:online_shop/util/extensions/string_extensions.dart';
@@ -12,8 +15,14 @@ class CartItem extends StatelessWidget {
   String? color;
   String colorName;
   CardItem cardItem;
-  CartItem(
-      {super.key, required this.colorName, this.color, required this.storage,required this.cardItem});
+  final int index;
+
+  CartItem(this.index,
+      {super.key,
+      required this.colorName,
+      this.color,
+      required this.storage,
+      required this.cardItem});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +45,7 @@ class CartItem extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(18, 32, 10, 41),
                 child: SizedBox(
                   height: 107,
-                  width: 80  ,
+                  width: 80,
                   child: Center(
                     child: CachedImage(imageUrl: cardItem.thumbnail),
                   ),
@@ -70,7 +79,6 @@ class CartItem extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 5),
-
                       SizedBox(width: 5),
                       Container(
                         width: 25,
@@ -192,7 +200,7 @@ class CartItem extends StatelessWidget {
                           children: [
                             CustomIcon(
                                 icon: 'active_fav',
-                                color: CustomColor.blueColor,
+                                color: CustomColor.blueColor2,
                                 size: 14),
                             Spacer(),
                             Text(
@@ -207,30 +215,40 @@ class CartItem extends StatelessWidget {
                       SizedBox(width: 10),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 10),
-
                         height: 24,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1, color: CustomColor.redColor),
+                          border:
+                              Border.all(width: 1, color: CustomColor.redColor),
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
-                        child: Center(
-                          child: Row(
-                            children: [
-                              CustomIcon(
-                                  icon: 'delete',
-                                  color: CustomColor.redColor,
-                                  size: 14),
-                              SizedBox(width: 5),
-
-                              Text(
-                                'حذف',
-                                style: theme.textTheme.headline1?.apply(
-                                    color: CustomColor.redColor,
-                                    fontSizeDelta: -1),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.transparent,
+                          
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(10),
+                            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                            onTap: (){
+                              context.read<CardBloc>().add(CardRemoveProductEvent(index));
+                            },
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  CustomIcon(
+                                      icon: 'delete',
+                                      color: CustomColor.redColor,
+                                      size: 14),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'حذف',
+                                    style: theme.textTheme.headline1?.apply(
+                                        color: CustomColor.redColor,
+                                        fontSizeDelta: -1),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),

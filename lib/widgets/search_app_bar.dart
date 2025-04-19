@@ -30,7 +30,7 @@ class SearchAppBar extends StatelessWidget {
                   theme.textTheme.headline1?.apply(color: CustomColor.greyColor),
             ),
             Spacer(),
-            CustomIcon(icon: 'apple', color: CustomColor.blueColor, size: 25),
+            CustomIcon(icon: 'apple', color: CustomColor.blueColor2, size: 25),
           ],
         ),
       ),

@@ -3,8 +3,12 @@ class Comment {
   String text;
   String productId;
   String userId;
+  String userThumbnailUrl;
+  String username;
+  String avatar;
 
-  Comment(this.id, this.text, this.productId, this.userId);
+  Comment(this.id, this.text, this.productId, this.userId,
+      this.userThumbnailUrl, this.username,this.avatar);
 
   factory Comment.fromMapJson(Map<String, dynamic> jsonObject) {
     return Comment(
@@ -12,6 +16,9 @@ class Comment {
       jsonObject['text'],
       jsonObject['product_id'],
       jsonObject['user_id'],
+      'https://startflutter.ir/api/files/${jsonObject['expand']['user_id']['collectionName']}/${jsonObject['expand']['user_id']['id']}/${jsonObject['expand']['user_id']['avatar']}',
+      jsonObject['expand']['user_id']['name'],
+      jsonObject['expand']['user_id']['avatar'],
     );
   }
 }

@@ -34,7 +34,7 @@ class AddToBasketButton extends StatelessWidget {
               color: Colors.white,
 
             ),),
-            backgroundColor: CustomColor.blueColor,
+            backgroundColor: CustomColor.blueColor2,
             duration: Duration(seconds: 2),
 
           );
@@ -49,7 +49,7 @@ class AddToBasketButton extends StatelessWidget {
               width: 130,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: CustomColor.blueColor,
+                color: CustomColor.blueColor2,
               ),
             ),
             ClipRRect(

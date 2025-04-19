@@ -75,13 +75,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               widget.category.title!,
                               textAlign: TextAlign.center,
                               style: theme.textTheme.headline1?.apply(
-                                  color: CustomColor.blueColor,
+                                  color: CustomColor.blueColor2,
                                   fontSizeDelta: 3),
                             ),
                           ),
                           CustomIcon(
                               icon: 'apple',
-                              color: CustomColor.blueColor,
+                              color: CustomColor.blueColor2,
                               size: 25),
                         ],
                       ),

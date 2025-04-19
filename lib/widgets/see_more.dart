@@ -26,13 +26,13 @@ class SeeMore extends StatelessWidget {
             Text(
               'مشاهده همه',
               style: theme.textTheme.headline3?.apply(
-                color: CustomColor.blueColor,
+                color: CustomColor.blueColor2,
               ),
             ),
             SizedBox(width: 10),
             CustomIcon(
                 icon: 'left_arrow_circle',
-                color: CustomColor.blueColor,
+                color: CustomColor.blueColor2,
                 size: 20),
           ],
         ),

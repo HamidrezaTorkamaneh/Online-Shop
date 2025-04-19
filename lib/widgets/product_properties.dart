@@ -54,13 +54,13 @@ class _ProductPropertiesState extends State<ProductProperties> {
                         'مشاهده',
                         style: theme.textTheme.headline1?.apply(
                           fontSizeDelta: 2,
-                          color: CustomColor.blueColor,
+                          color: CustomColor.blueColor2,
                         ),
                       ),
                       SizedBox(width: 5),
                       CustomIcon(
                           icon: 'left_arrow_circle',
-                          color: CustomColor.blueColor,
+                          color: CustomColor.blueColor2,
                           size: 20),
                     ],
                   ),

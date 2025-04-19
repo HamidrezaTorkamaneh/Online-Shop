@@ -20,6 +20,7 @@ import 'variant_container_generator.dart';
 class DetailContentWidget extends StatelessWidget {
   final ProductDetailScreen parentWidget;
 
+
   const DetailContentWidget({super.key, required this.parentWidget});
 
   @override
@@ -67,7 +68,7 @@ class DetailContentWidget extends StatelessWidget {
                               'دسته بندی',
                               textAlign: TextAlign.center,
                               style: theme.textTheme.headline1?.apply(
-                                  color: CustomColor.blueColor,
+                                  color: CustomColor.blueColor2,
                                   fontSizeDelta: 3),
                             );
                           }, (productCategory) {
@@ -75,13 +76,13 @@ class DetailContentWidget extends StatelessWidget {
                               productCategory.title!,
                               textAlign: TextAlign.center,
                               style: theme.textTheme.headline1?.apply(
-                                  color: CustomColor.blueColor,
+                                  color: CustomColor.blueColor2,
                                   fontSizeDelta: 1),
                             );
                           })),
                           CustomIcon(
                               icon: 'apple',
-                              color: CustomColor.blueColor,
+                              color: CustomColor.blueColor2,
                               size: 25),
                         ],
                       ),
@@ -157,12 +158,13 @@ class DetailContentWidget extends StatelessWidget {
                                       return bloc;
                                     },
                                     child: DraggableScrollableSheet(
-                                      initialChildSize: 0.5,
-                                      minChildSize: 0.2,
-                                      maxChildSize: 0.7,
+                                      expand: false,
+                                      initialChildSize: 1.0,
+                                      minChildSize: 0.4,
+                                      maxChildSize: 1.0,
                                       builder: (context, scrollController) {
                                         return CommentBottomSheet(
-                                            scrollController);
+                                            scrollController,productId: parentWidget.product.id,);
                                       },
                                     ),
                                   );
@@ -271,13 +273,13 @@ class DetailContentWidget extends StatelessWidget {
                                     'مشاهده',
                                     style: theme.textTheme.headline1?.apply(
                                       fontSizeDelta: 2,
-                                      color: CustomColor.blueColor,
+                                      color: CustomColor.blueColor2,
                                     ),
                                   ),
                                   SizedBox(width: 5),
                                   CustomIcon(
                                       icon: 'left_arrow_circle',
-                                      color: CustomColor.blueColor,
+                                      color: CustomColor.blueColor2,
                                       size: 20),
                                 ],
                               ),

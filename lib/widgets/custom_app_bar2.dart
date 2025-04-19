@@ -30,11 +30,11 @@ class CustomAppBar2 extends StatelessWidget{
               text,
               textAlign: TextAlign.center,
               style: theme.textTheme.headline1
-                  ?.apply(color: CustomColor.blueColor,
+                  ?.apply(color: CustomColor.blueColor2,
                   fontSizeDelta: 3),
             ),
           ),
-          CustomIcon(icon: 'apple', color: CustomColor.blueColor, size: 25),
+          CustomIcon(icon: 'apple', color: CustomColor.blueColor2, size: 25),
         ],
       ),
     );

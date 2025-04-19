@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: CustomColor.blueColor,
+      backgroundColor: CustomColor.blueColor2,
       body: Column(
         children: [
           Expanded(

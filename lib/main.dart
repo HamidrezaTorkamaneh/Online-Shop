@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:online_shop/bloc/authentication/auth_bloc.dart';
 import 'package:online_shop/bloc/card/card_bloc.dart';
 import 'package:online_shop/bloc/card/card_event.dart';
 import 'package:online_shop/bloc/category/category_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:online_shop/bloc/home/home_bloc.dart';
 import 'package:online_shop/bloc/home/home_event.dart';
 import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/screens/category_screen.dart';
+import 'package:online_shop/screens/login_screen.dart';
 import 'package:online_shop/screens/profile_screen.dart';
 import 'package:online_shop/screens/shopping_cart_screen.dart';
 import 'package:online_shop/widgets/Custom_icon.dart';
@@ -70,7 +72,8 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Scaffold(
         backgroundColor: CustomColor.backGroundColor,
-        body: IndexedStack(
+        body:
+        IndexedStack(
           index: selectedBottomNavigationIndex,
           children: getScreens(),
         ),
@@ -90,14 +93,14 @@ class _MyAppState extends State<MyApp> {
               selectedLabelStyle: TextStyle(
                 fontFamily: 'YB',
                 fontSize: 10,
-                color: CustomColor.blueColor,
+                color: CustomColor.blueColor2,
               ),
               unselectedLabelStyle: TextStyle(
                 fontFamily: 'YB',
                 fontSize: 10,
                 color: Colors.black,
               ),
-              selectedItemColor: CustomColor.blueColor,
+              selectedItemColor: CustomColor.blueColor2,
               unselectedItemColor: Colors.black,
               items: [
                 BottomNavigationBarItem(
@@ -106,7 +109,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.only(bottom: 3),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         blurRadius: 20,
                         spreadRadius: -7,
                         offset: Offset(0.0, 13),
@@ -114,7 +117,7 @@ class _MyAppState extends State<MyApp> {
                     ]),
                     child: CustomIcon(
                         icon: 'active_home',
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         size: 25),
                   ),
                   label: 'خانه',
@@ -126,7 +129,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.only(bottom: 3),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         blurRadius: 20,
                         spreadRadius: -7,
                         offset: Offset(0.0, 13),
@@ -134,7 +137,7 @@ class _MyAppState extends State<MyApp> {
                     ]),
                     child: CustomIcon(
                         icon: 'active_category',
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         size: 25),
                   ),
                   label: 'دسته بندی',
@@ -146,7 +149,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.only(bottom: 3),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         blurRadius: 20,
                         spreadRadius: -7,
                         offset: Offset(0.0, 13),
@@ -154,7 +157,7 @@ class _MyAppState extends State<MyApp> {
                     ]),
                     child: CustomIcon(
                         icon: 'active_basket',
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         size: 25),
                   ),
                   label: 'سبد خرید',
@@ -165,7 +168,7 @@ class _MyAppState extends State<MyApp> {
                     padding: EdgeInsets.only(bottom: 3),
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         blurRadius: 20,
                         spreadRadius: -7,
                         offset: Offset(0.0, 13),
@@ -173,7 +176,7 @@ class _MyAppState extends State<MyApp> {
                     ]),
                     child: CustomIcon(
                         icon: 'active_user',
-                        color: CustomColor.blueColor,
+                        color: CustomColor.blueColor2,
                         size: 25),
                   ),
                   label: 'حساب کاربری',
@@ -191,7 +194,7 @@ List<Widget> getScreens() {
   return <Widget>[
     BlocProvider(
       create: (context) {
-        var bloc=HomeBloc();
+        var bloc = HomeBloc();
         bloc.add(HomeGetInitializeData());
         return bloc;
       },
