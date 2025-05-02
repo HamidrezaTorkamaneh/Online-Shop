@@ -1,25 +1,17 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:online_shop/bloc/authentication/auth_bloc.dart';
-import 'package:online_shop/bloc/card/card_bloc.dart';
-import 'package:online_shop/bloc/card/card_event.dart';
-import 'package:online_shop/bloc/category/category_bloc.dart';
-import 'package:online_shop/bloc/home/home_bloc.dart';
 import 'package:online_shop/bloc/home/home_event.dart';
 import 'package:online_shop/data/model/card_item.dart';
-import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/dashboard_screen.dart';
 import 'package:online_shop/screens/login_screen.dart';
-import 'package:online_shop/screens/profile_screen.dart';
-import 'package:online_shop/screens/shopping_cart_screen.dart';
 import 'package:online_shop/util/auth_manager.dart';
-import 'package:online_shop/widgets/Custom_icon.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'di/di.dart';
-import 'screens/home_screen.dart';
+
+GlobalKey<NavigatorState> globalNavigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: globalNavigatorKey,
       localizationsDelegates: const [
         GlobalCupertinoLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -72,14 +65,8 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      home: (AuthManager.readAuth().isEmpty) ?
-
-      BlocProvider(
-        create: ((context) => AuthBloc()),
-        child: LoginScreen(),
-      ): DashBoardScreen()
+      home:
+          (AuthManager.readAuth().isEmpty) ? LoginScreen() : DashBoardScreen(),
     );
   }
 }
-
-

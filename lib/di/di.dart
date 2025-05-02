@@ -26,7 +26,7 @@ Future<void> getItInit() async {
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
   //components
-  locator.registerSingleton<Dio>(DioProvider().createDio());
+  locator.registerSingleton<Dio>(DioProvider.createDio());
 
 
 

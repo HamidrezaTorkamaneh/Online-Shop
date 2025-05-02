@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          return _getHomeScreenContent(state,context);
+          return _getHomeScreenContent(state, context);
         },
       )),
     );
@@ -59,13 +59,12 @@ Widget _getHomeScreenContent(HomeState state, BuildContext context) {
     );
   } else if (state is HomeRequestSuccessState) {
     return RefreshIndicator(
-      onRefresh: ()async{
-       context.read<HomeBloc>().add(HomeGetInitializeData());
-
+      onRefresh: () async {
+        context.read<HomeBloc>().add(HomeGetInitializeData());
       },
       child: CustomScrollView(
-        physics:
-            BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+        physics: BouncingScrollPhysics(
+            decelerationRate: ScrollDecelerationRate.fast),
         slivers: [
           SearchAppBar(),
           state.bannerList.fold((exceptionMessage) {
@@ -95,7 +94,8 @@ Widget _getHomeScreenContent(HomeState state, BuildContext context) {
             return SliverToBoxAdapter(child: Text(exceptionMessage));
           }, (productList) {
             return MostViewProducts(productList);
-          })
+          }),
+          SliverPadding(padding: EdgeInsets.only(top: 30)),
         ],
       ),
     );

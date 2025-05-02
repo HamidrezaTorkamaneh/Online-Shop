@@ -28,18 +28,20 @@ class AddToBasketButton extends StatelessWidget {
         onTap: () {
           context.read<ProductBloc>().add(ProductAddToBasket(product));
           context.read<CardBloc>().add(CardFetchFromHiveEvent());
-          final text = 'محصول به سبد خرید اضافه شد.';
           final snackBar = SnackBar(
-            content: Text(text,style: theme.textTheme.headline1!.apply(
-              color: Colors.white,
-
-            ),),
+            content: Text(
+              'محصول به سبد خرید اضافه شد.',
+              style: theme.textTheme.headline1!.apply(
+                color: Colors.white,
+              ),
+            ),
+            behavior: SnackBarBehavior.floating,
             backgroundColor: CustomColor.blueColor2,
             duration: Duration(seconds: 2),
-
           );
           Duration(seconds: 2);
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          ScaffoldMessenger.of(context)
+              .showSnackBar(snackBar);
         },
         child: Stack(
           alignment: Alignment.bottomCenter,

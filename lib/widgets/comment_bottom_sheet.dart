@@ -145,44 +145,54 @@ class _CommentBottomSheetState extends State<CommentBottomSheet> {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.white,
                 ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: CustomColor.blueColor2,
-                      maxRadius: 22,
-                      child: CustomIcon(
-                        icon: 'send',
-                        color: Colors.white,
-                        size: 15,
-                        onTap: (){
-                          if(widget.textController.text.isEmpty){
-                            return;
-                          }
-                          context.read<CommentBloc>().add(CommentPostEvent(widget.productId,widget.textController.text ));
-                          widget.textController.clear();
-                        },
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Expanded(
-                      child: Container(
-                        height: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: TextField(
-                          focusNode: _focusNode,
-                          controller: widget.textController,
-                          style: theme.textTheme.headline3
-                              ?.apply(fontSizeDelta: 2),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'پیام خود را اینجا تایپ کنید....',
-                            hintStyle: theme.textTheme.headline3
-                                ?.apply(fontSizeDelta: 2),
+                child:Material(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.transparent,
+
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    overlayColor: MaterialStatePropertyAll(Colors.transparent),
+                    onTap: (){
+                      if(widget.textController.text.isEmpty){
+                        return;
+                      }
+                      context.read<CommentBloc>().add(CommentPostEvent(widget.productId,widget.textController.text ));
+                      widget.textController.clear();
+                    },
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: CustomColor.blueColor2,
+                          maxRadius: 22,
+                          child: CustomIcon(
+                            icon: 'send',
+                            color: Colors.white,
+                            size: 15,
+
                           ),
                         ),
-                      ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            height: double.infinity,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: TextField(
+                              focusNode: _focusNode,
+                              controller: widget.textController,
+                              style: theme.textTheme.headline3
+                                  ?.apply(fontSizeDelta: 2),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'پیام خود را اینجا تایپ کنید....',
+                                hintStyle: theme.textTheme.headline3
+                                    ?.apply(fontSizeDelta: 2),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

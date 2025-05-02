@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:online_shop/util/api_exception.dart';
+import 'package:online_shop/util/auth_manager.dart';
+import 'package:online_shop/util/dio_provider.dart';
 
 import '../../di/di.dart';
 
@@ -11,7 +13,7 @@ abstract class IAuthenticationDatasource {
 }
 
 class AuthenticationRemote implements IAuthenticationDatasource {
-  final Dio _dio = locator.get();
+  final Dio _dio = DioProvider.createDioWithoutHeader();
 
   @override
   Future<void> register(
@@ -19,13 +21,18 @@ class AuthenticationRemote implements IAuthenticationDatasource {
     try {
       final response = await _dio.post('collections/users/records', data: {
         'username': username,
+        'name':username,
         'password': password,
         'passwordConfirm': passwordConfirm,
       });
+
+      if (response.statusCode == 200) {
+        login(username, password);
+      }
     } on DioError catch (ex) {
-      throw ApiException(ex.response?.statusCode, ex.response?.data['message']);
+      throw ApiException(ex.response?.statusCode, ex.response?.data['message'],response: ex.response);
     } catch (ex) {
-      throw ApiException(0, 'unknow error');
+      throw ApiException(0, 'unknown error');
     }
   }
 
@@ -38,6 +45,8 @@ class AuthenticationRemote implements IAuthenticationDatasource {
         'password': password,
       });
       if (response.statusCode == 200) {
+        AuthManager.saveId(response.data['record']['id']);
+        AuthManager.saveToken(response.data?['token']);
         return response.data?['token'];
       }
     } on DioError catch (ex) {

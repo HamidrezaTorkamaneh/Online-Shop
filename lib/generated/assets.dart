@@ -26,5 +26,7 @@ class Assets {
   static const String imagesIconUser = 'assets/images/icon_user.svg';
   static const String imagesIphone = 'assets/images/iphone.png';
   static const String imagesIphone1 = 'assets/images/iphone1.png';
+  static const String imagesLogin = 'assets/images/login.png';
+  static const String imagesSignup = 'assets/images/signup.jpg';
 
 }

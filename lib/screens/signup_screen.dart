@@ -5,22 +5,24 @@ import 'package:online_shop/bloc/authentication/auth_bloc.dart';
 import 'package:online_shop/bloc/authentication/auth_event.dart';
 import 'package:online_shop/bloc/authentication/auth_state.dart';
 import 'package:online_shop/screens/dashboard_screen.dart';
-import 'package:online_shop/screens/signup_screen.dart';
+import 'package:online_shop/screens/login_screen.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/my_button.dart';
 import 'package:online_shop/widgets/my_text_field.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  SignupScreen({super.key});
 
-  final usernameTextController = TextEditingController(text: 'hamid12345');
+  final usernameTextController = TextEditingController(text: 'hamid1234567');
   final passwordTextController = TextEditingController(text: 'hamid1234');
+  final passwordConfirmTextController =
+      TextEditingController(text: 'hamid1234');
 
   @override
   Widget build(BuildContext context) {
     SystemUiOverlayStyle(
-      systemNavigationBarIconBrightness: Brightness.dark,
-      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
       systemNavigationBarColor: Colors.white,
       statusBarColor: Colors.white,
     );
@@ -30,6 +32,7 @@ class LoginScreen extends StatelessWidget {
       child: ViewContainer(
           usernameTextController: usernameTextController,
           passwordTextController: passwordTextController,
+          passwordConfirmTextController: passwordConfirmTextController,
           theme: theme),
     );
   }
@@ -40,11 +43,13 @@ class ViewContainer extends StatelessWidget {
     super.key,
     required this.usernameTextController,
     required this.passwordTextController,
+    required this.passwordConfirmTextController,
     required this.theme,
   });
 
   final TextEditingController usernameTextController;
   final TextEditingController passwordTextController;
+  final TextEditingController passwordConfirmTextController;
   final ThemeData theme;
 
   @override
@@ -61,10 +66,10 @@ class ViewContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/login.png',
+                      'assets/images/signup.jpg',
                       width: double.infinity,
                     ),
-                    // SizedBox(height: 20),
+                    SizedBox(height: 20),
                     // Text(
                     //   'اپل شاپ',
                     //   style: theme.textTheme.headline1?.apply(
@@ -77,14 +82,14 @@ class ViewContainer extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
+              child: Container(
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -95,10 +100,15 @@ class ViewContainer extends StatelessWidget {
                       MyTextField(
                           text: 'رمز عبور', controller: passwordTextController),
                       SizedBox(height: 20),
+                      MyTextField(
+                          text: 'تکرار رمز عبور',
+                          controller: passwordConfirmTextController),
+                      SizedBox(height: 10),
                       BlocConsumer<AuthBloc, AuthState>(
                         listener: (context, state) {
-                          usernameTextController.text = '';
-                          passwordTextController.text = '';
+                          usernameTextController.text='';
+                          passwordTextController.text='';
+                          passwordConfirmTextController.text='';
                           if (state is AuthResponseState) {
                             state.response.fold((l) {
                               final snackBar = SnackBar(
@@ -122,15 +132,18 @@ class ViewContainer extends StatelessWidget {
                             });
                           }
                         },
+
                         builder: (context, state) {
                           if (state is AuthInitiateState) {
                             return MyButton(
-                              text: 'ورود به حساب کاربری',
+                              text: 'ثبت نام',
                               color: Colors.blue,
                               onTap: () {
                                 BlocProvider.of<AuthBloc>(context).add(
-                                  AuthLoginRequest(usernameTextController.text,
-                                      passwordTextController.text),
+                                  AuthRegisterRequest(
+                                      usernameTextController.text,
+                                      passwordTextController.text,
+                                      passwordConfirmTextController.text),
                                 );
                               },
                             );
@@ -143,7 +156,7 @@ class ViewContainer extends StatelessWidget {
                             Widget widget = Text('');
                             state.response.fold((l) {
                               widget = MyButton(
-                                text: 'ورود به حساب کاربری',
+                                text: 'ثبت نام',
                                 color: Colors.blue,
                                 onTap: () {
                                   BlocProvider.of<AuthBloc>(context).add(
@@ -165,11 +178,11 @@ class ViewContainer extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (context) {
-                              return SignupScreen();
+                              return LoginScreen();
                             }),
                           );
                         },
-                        child: Text('ایجاد حساب کاربری',
+                        child: Text('حساب کاربری دارم!',
                             style: theme.textTheme.headline1!
                                 .apply(color: CustomColor.blueColor1)),
                       ),

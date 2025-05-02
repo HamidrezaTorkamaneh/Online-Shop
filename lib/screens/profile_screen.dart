@@ -1,5 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_shop/bloc/authentication/auth_bloc.dart';
+import 'package:online_shop/bloc/authentication/auth_state.dart';
+import 'package:online_shop/main.dart';
+import 'package:online_shop/screens/dashboard_screen.dart';
+import 'package:online_shop/screens/login_screen.dart';
+import 'package:online_shop/util/auth_manager.dart';
 import 'package:online_shop/widgets/category_items.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 
@@ -18,6 +25,19 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           children: [
             CustomAppBar1(text: 'حساب کاربری'),
+            ElevatedButton(
+                onPressed: () {
+                  AuthManager.logout();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return  LoginScreen();
+
+                      },
+                    ),
+                  );
+                },
+                child: Text('خروج')),
             SizedBox(height: 30),
             Text('محمد جواد هاشمی',
                 style: theme.textTheme.headline1?.apply(fontSizeDelta: 5)),
@@ -46,8 +66,6 @@ class ProfileScreen extends StatelessWidget {
                 // CategoryItems(),
               ],
             ),
-
-
             Spacer(),
             Text(
               'اپل شاپ',
