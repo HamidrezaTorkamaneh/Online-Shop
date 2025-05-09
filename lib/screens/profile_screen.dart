@@ -14,7 +14,8 @@ import '../data/datasource/authentication_datasource.dart';
 import '../widgets/custom_app_bar1.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final String username;
+  ProfileScreen(this.username,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                 },
                 child: Text('خروج')),
             SizedBox(height: 30),
-            Text('محمد جواد هاشمی',
+            Text(username,
                 style: theme.textTheme.headline1?.apply(fontSizeDelta: 5)),
             SizedBox(height: 5),
             Text(

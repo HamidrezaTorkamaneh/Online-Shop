@@ -1,13 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:online_shop/bloc/card/card_bloc.dart';
 import 'package:online_shop/bloc/card/card_event.dart';
 import 'package:online_shop/bloc/category/category_bloc.dart';
 import 'package:online_shop/bloc/home/home_bloc.dart';
 import 'package:online_shop/bloc/home/home_event.dart';
-import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/di/di.dart';
 import 'package:online_shop/screens/category_screen.dart';
 import 'package:online_shop/screens/home_screen.dart';
@@ -19,7 +17,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({super.key});
+  final String username;
+  DashBoardScreen(this.username,{super.key});
 
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
@@ -64,7 +63,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
         body:
         IndexedStack(
           index: selectedBottomNavigationIndex,
-          children: getScreens(),
+          children: getScreens(widget.username),
         ),
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
@@ -179,7 +178,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   }
 }
 
-List<Widget> getScreens() {
+List<Widget> getScreens(String username) {
   return <Widget>[
     BlocProvider(
       create: (context) {
@@ -203,6 +202,6 @@ List<Widget> getScreens() {
       },
       child: ShoppingCartScreen(),
     ),
-    ProfileScreen(),
+    ProfileScreen(username),
   ];
 }

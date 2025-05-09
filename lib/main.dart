@@ -6,6 +6,7 @@ import 'package:online_shop/bloc/home/home_event.dart';
 import 'package:online_shop/data/model/card_item.dart';
 import 'package:online_shop/screens/dashboard_screen.dart';
 import 'package:online_shop/screens/login_screen.dart';
+import 'package:online_shop/screens/splash_screen.dart';
 import 'package:online_shop/util/auth_manager.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -47,6 +48,10 @@ class _MyAppState extends State<MyApp> {
       ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: CustomColor.blueColor1,
+          selectionHandleColor: CustomColor.blueColor1,
+        ),
         textTheme: TextTheme(
           headline1: TextStyle(
             fontFamily: 'YB',
@@ -66,7 +71,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       home:
-          (AuthManager.readAuth().isEmpty) ? LoginScreen() : DashBoardScreen(),
+      SplashScreen(),
     );
   }
 }

@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 import 'custom_color.dart';
 
-class MyTextField extends StatelessWidget {
+class UserTextField extends StatelessWidget {
   String text;
+  Icon ?icon;
   TextEditingController ?controller=TextEditingController();
 
-  MyTextField({super.key,required this.text,this.controller});
+  UserTextField({super.key,required this.text,this.controller,this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,11 @@ class MyTextField extends StatelessWidget {
       style: theme.textTheme.headline1?.apply(
         fontSizeDelta: 4,
       ),
+
+
       decoration: InputDecoration(
+
+        prefixIcon: icon,
         labelText: text,
         labelStyle: theme.textTheme.headline1?.apply(
           fontSizeDelta: 2,

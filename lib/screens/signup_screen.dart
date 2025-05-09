@@ -8,15 +8,17 @@ import 'package:online_shop/screens/dashboard_screen.dart';
 import 'package:online_shop/screens/login_screen.dart';
 import 'package:online_shop/widgets/custom_color.dart';
 import 'package:online_shop/widgets/my_button.dart';
-import 'package:online_shop/widgets/my_text_field.dart';
+import 'package:online_shop/widgets/pass_text_field.dart';
+import 'package:online_shop/widgets/user_text_field.dart';
+
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
-  final usernameTextController = TextEditingController(text: 'hamid1234567');
-  final passwordTextController = TextEditingController(text: 'hamid1234');
+  final usernameTextController = TextEditingController(text: '');
+  final passwordTextController = TextEditingController(text: '');
   final passwordConfirmTextController =
-      TextEditingController(text: 'hamid1234');
+      TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -93,22 +95,18 @@ class ViewContainer extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      MyTextField(
+                      UserTextField(
+                        icon: Icon(Icons.person),
                           text: 'نام کاربری',
                           controller: usernameTextController),
                       SizedBox(height: 20),
-                      MyTextField(
-                          text: 'رمز عبور', controller: passwordTextController),
+                      PassTextField(controller: passwordTextController, text: 'رمز عبور'),
                       SizedBox(height: 20),
-                      MyTextField(
-                          text: 'تکرار رمز عبور',
-                          controller: passwordConfirmTextController),
+                      PassTextField(controller: passwordConfirmTextController, text: 'تکرار رمز عبور'),
                       SizedBox(height: 10),
                       BlocConsumer<AuthBloc, AuthState>(
                         listener: (context, state) {
-                          usernameTextController.text='';
-                          passwordTextController.text='';
-                          passwordConfirmTextController.text='';
+
                           if (state is AuthResponseState) {
                             state.response.fold((l) {
                               final snackBar = SnackBar(
@@ -125,10 +123,13 @@ class ViewContainer extends StatelessWidget {
                               Duration(seconds: 2);
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
+                              usernameTextController.text='';
+                              passwordTextController.text='';
+                              passwordConfirmTextController.text='';
                             }, (r) {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => DashBoardScreen()));
+                                      builder: (context) => DashBoardScreen(usernameTextController.text)));
                             });
                           }
                         },
